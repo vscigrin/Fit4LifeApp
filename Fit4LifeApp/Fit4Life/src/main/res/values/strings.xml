@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">FIT4LIFE</string>
+    <string name="action_settings">Настройки</string>
+
+    <string name="action_back">Назад</string>
+    <string name="action_home">На главную</string>
+
+    <!-- Main menu TextView texts -->
+    <string name="main_menu_text00">Упражнения</string>
+    <string name="main_menu_text01">Таблицы</string>
+    <string name="main_menu_text02">Видеовыпуски</string>
+    <string name="main_menu_text10">Подполье</string>
+    <string name="main_menu_text11">Дневник</string>
+    <string name="main_menu_text12">Аудиовыпуски</string>
+    <string name="main_menu_text20">Планировщик</string>
+    <string name="main_menu_text21">Замерки</string>
+    <string name="main_menu_text22">Общение</string>
+    <string name="title_activity_body_parts">Части тела</string>
+    <string name="title_activity_exercises">Упражнения</string>
+    <string name="title_activity_exercises_item">Описание упражнения</string>
+    <string name="title_activity_tables">Таблицы</string>
+    <string name="title_activity_video">Видеовыпуски</string>
+    <string name="title_activity_underground">Подполье</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_diary">Дневник</string>
+    <string name="title_activity_audio">Аудиовыпуски</string>
+    <string name="title_activity_planner">Планировщик</string>
+    <string name="title_activity_measurements">Замерки</string>
+    <string name="title_activity_communication">Общение</string>
+
+    <string name="exercise_group1">Ноги</string>
+    <string name="exercise_group2">Спина</string>
+    <string name="exercise_group3">Грудь</string>
+    <string name="exercise_group4">Трапеции</string>
+    <string name="exercise_group5">Плечи</string>
+    <string name="exercise_group6">Руки</string>
+
+    <string name="exercise_item_exercise_type_title">Тип</string>
+    <string name="exercise_item_description_title">Описание</string>
+    <string name="exercise_item_technique_title">Техника</string>
+    <string name="exercise_item_working_muscles_title">Работающие мышцы</string>
+
+    <string name="exercise_item_data_found">Данные временно отсутствуют.</string>
+
+    <string name="alert_title_empty_body_parts">Инфо</string>
+    <string name="alert_message_empty_body_parts">Данный раздел пуст.</string>
+
+
+</resources>

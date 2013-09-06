@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="ru.fit4life.app"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="7"
+        android:targetSdkVersion="16" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        <activity
+            android:name="ru.fit4life.app.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".BodyPartsActivity"
+            android:label="@string/title_activity_body_parts"
+            android:parentActivityName="MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="MainActivity" />
+        </activity>
+        <activity
+            android:name="ru.fit4life.app.TablesActivity"
+            android:label="@string/title_activity_tables"
+            android:parentActivityName="MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="MainActivity" />
+        </activity>
+        <activity
+            android:name="ru.fit4life.app.VideoActivity"
+            android:label="@string/title_activity_video"
+            android:parentActivityName="MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="MainActivity" />
+        </activity>
+        <activity
+            android:name="ru.fit4life.app.UndergroundActivity"
+            android:label="@string/title_activity_underground" >
+        </activity>
+        <activity
+            android:name="ru.fit4life.app.DiaryActivity"
+            android:label="@string/title_activity_diary"
+            android:parentActivityName="MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="MainActivity" />
+        </activity>
+        <activity
+            android:name="ru.fit4life.app.AudioActivity"
+            android:label="@string/title_activity_audio"
+            android:parentActivityName="MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="MainActivity" />
+        </activity>
+        <activity
+            android:name="ru.fit4life.app.PlannerActivity"
+            android:label="@string/title_activity_planner"
+            android:parentActivityName="MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="MainActivity" />
+        </activity>
+        <activity
+            android:name="ru.fit4life.app.MeasurementsActivity"
+            android:label="@string/title_activity_measurements" >
+        </activity>
+        <activity
+            android:name="ru.fit4life.app.CommunicationActivity"
+            android:label="@string/title_activity_communication"
+            android:parentActivityName="MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="MainActivity" />
+        </activity>
+
+        <activity
+            android:name=".ExercisesActivity"
+            android:label="@string/title_activity_exercises"
+            android:parentActivityName="BodyPartsActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="BodyPartsActivity" />
+        </activity>
+        <activity
+            android:name=".ExercisesItemActivity"
+            android:label="@string/title_activity_exercises_item"
+            android:parentActivityName="ExercisesActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ExercisesActivity" />
+        </activity>
+
+    </application>
+
+</manifest>

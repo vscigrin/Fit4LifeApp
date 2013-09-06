@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#373737">
+
+    <include layout="@layout/navigation_toolbar_top"/>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:gravity="center"
+        android:background="#637D7E">
+
+    <ImageView
+        android:id="@+id/imageViewExercisesItemIcon"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginLeft="10dp"/>
+
+    <TextView
+        android:id="@+id/textViewExercisesItemName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.0"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="5dp"
+        android:textSize="22dp"
+        android:singleLine="false"
+        android:maxLines="3"
+        android:textColor="#EDEDED"/>
+    </LinearLayout>
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="#373737">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="#EDEDED">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1.0"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textSize="24dp"
+                    android:textColor="#637D7E"
+                    android:text="@string/exercise_item_exercise_type_title"
+                    android:layout_span="2"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="#EDEDED">
+
+                <TextView
+                    android:id="@+id/textViewExercisesItemExerciseType"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1.0"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textSize="16dp"
+                    android:singleLine="false"
+                    android:textColor="#5C5C5C"
+                    android:layout_span="2"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="#EDEDED">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1.0"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textSize="24dp"
+                    android:textColor="#637D7E"
+                    android:text="@string/exercise_item_description_title"
+                    android:layout_span="2"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="#EDEDED">
+
+                <TextView
+                    android:id="@+id/textViewExercisesItemDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1.0"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textSize="16dp"
+                    android:singleLine="false"
+                    android:textColor="#5C5C5C"
+                    android:layout_span="2"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="#EDEDED">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1.0"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textSize="24dp"
+                    android:textColor="#637D7E"
+                    android:text="@string/exercise_item_technique_title"
+                    android:layout_span="2"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="#EDEDED">
+
+                <TextView
+                    android:id="@+id/textViewExercisesItemTechnique"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1.0"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textSize="16dp"
+                    android:singleLine="false"
+                    android:textColor="#5C5C5C"
+                    android:layout_span="2"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="#EDEDED">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1.0"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textSize="24dp"
+                    android:textColor="#637D7E"
+                    android:text="@string/exercise_item_working_muscles_title"
+                    android:layout_span="2"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="#EDEDED">
+
+                <TextView
+                    android:id="@+id/textViewExercisesItemWorkingMuscles"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1.0"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textSize="16dp"
+                    android:singleLine="false"
+                    android:textColor="#5C5C5C"
+                    android:layout_span="2"/>
+            </TableRow>
+        </TableLayout>
+    </ScrollView>
+</LinearLayout>
