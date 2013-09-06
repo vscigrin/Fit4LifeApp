@@ -28,47 +28,47 @@ public class MainActivity extends Activity {
         /* based on the button clicked load the appropriate activity */
         switch (view.getId()) {
             /* show exercises */
-            case R.id.button00: {
+            case R.id.main_btn_exercises: {
                 intent = new Intent(this, BodyPartsActivity.class);
             } break;
 
             /* show tables */
-            case R.id.button01: {
+            case R.id.main_btn_tables: {
                 intent = new Intent(this, TablesActivity.class);
             } break;
 
             /* show video */
-            case R.id.button02: {
+            case R.id.main_btn_video: {
                 intent = new Intent(this, VideoActivity.class);
             } break;
 
             /* show underground */
-            case R.id.button10: {
+            case R.id.main_btn_underground: {
                 intent = new Intent(this, UndergroundActivity.class);
             } break;
 
             /* show diary */
-            case R.id.button11: {
+            case R.id.main_btn_diary: {
                 intent = new Intent(this, DiaryActivity.class);
             } break;
 
             /* show audio */
-            case R.id.button12: {
+            case R.id.main_btn_audio: {
                 intent = new Intent(this, AudioActivity.class);
             } break;
 
             /* show planner */
-            case R.id.button20: {
+            case R.id.main_btn_planner: {
                 intent = new Intent(this, PlannerActivity.class);
             } break;
 
             /* show measurements */
-            case R.id.button21: {
+            case R.id.main_btn_measurements: {
                 intent = new Intent(this, MeasurementsActivity.class);
             } break;
 
             /* show communication */
-            case R.id.button22: {
+            case R.id.main_btn_communication: {
                 intent = new Intent(this, CommunicationActivity.class);
             } break;
         }
