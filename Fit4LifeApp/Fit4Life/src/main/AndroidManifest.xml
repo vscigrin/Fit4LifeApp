@@ -26,7 +26,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".BodyPartsActivity"
+            android:name="ru.fit4life.app.BodyPartsActivity"
             android:label="@string/title_activity_body_parts"
             android:parentActivityName="MainActivity" >
             <meta-data
@@ -89,9 +89,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="MainActivity" />
         </activity>
-
         <activity
-            android:name=".ExercisesActivity"
+            android:name="ru.fit4life.app.ExercisesActivity"
             android:label="@string/title_activity_exercises"
             android:parentActivityName="BodyPartsActivity" >
             <meta-data
@@ -99,14 +98,21 @@
                 android:value="BodyPartsActivity" />
         </activity>
         <activity
-            android:name=".ExercisesItemActivity"
+            android:name="ru.fit4life.app.ExercisesItemActivity"
             android:label="@string/title_activity_exercises_item"
             android:parentActivityName="ExercisesActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ExercisesActivity" />
         </activity>
-
+        <activity
+            android:name="ru.fit4life.app.NutrientsActivity"
+            android:label="@string/title_activity_nutrients"
+            android:parentActivityName="TablesActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="TablesActivity" />
+        </activity>
     </application>
 
 </manifest>

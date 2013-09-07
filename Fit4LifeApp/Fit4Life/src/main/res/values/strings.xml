@@ -3,7 +3,6 @@
 
     <string name="app_name">FIT4LIFE</string>
     <string name="action_settings">Настройки</string>
-
     <string name="action_back">Назад</string>
     <string name="action_home">На главную</string>
 
@@ -29,23 +28,13 @@
     <string name="title_activity_planner">Планировщик</string>
     <string name="title_activity_measurements">Замерки</string>
     <string name="title_activity_communication">Общение</string>
-
-    <string name="exercise_group1">Ноги</string>
-    <string name="exercise_group2">Спина</string>
-    <string name="exercise_group3">Грудь</string>
-    <string name="exercise_group4">Трапеции</string>
-    <string name="exercise_group5">Плечи</string>
-    <string name="exercise_group6">Руки</string>
-
     <string name="exercise_item_exercise_type_title">Тип</string>
     <string name="exercise_item_description_title">Описание</string>
     <string name="exercise_item_technique_title">Техника</string>
     <string name="exercise_item_working_muscles_title">Работающие мышцы</string>
-
     <string name="exercise_item_data_found">Данные временно отсутствуют.</string>
-
     <string name="alert_title_empty_body_parts">Инфо</string>
     <string name="alert_message_empty_body_parts">Данный раздел пуст.</string>
-
+    <string name="title_activity_nutrients">Б+Ж+У+ККал</string>
 
 </resources>
