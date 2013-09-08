@@ -36,5 +36,6 @@
     <string name="alert_title_empty_body_parts">Инфо</string>
     <string name="alert_message_empty_body_parts">Данный раздел пуст.</string>
     <string name="title_activity_nutrients">Б+Ж+У+ККал</string>
+    <string name="title_activity_glycemic_index">Гликемический Индекс</string>
 
 </resources>

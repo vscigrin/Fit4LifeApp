@@ -34,6 +34,7 @@ public class TablesActivity extends Activity {
             /* show glycemic Indexes table */
             case R.id.tableGlycemicIndex: {
                 Log.i(TAG, "R.id.tableGlycIndex selected");
+                intent = new Intent(this, GlycemicIndexActivity.class);
             }
             break;
             /* show weighting table */

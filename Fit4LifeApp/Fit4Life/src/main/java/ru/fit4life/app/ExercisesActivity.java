@@ -14,7 +14,6 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.support.v4.widget.SimpleCursorAdapter;
-import android.widget.Toast;
 
 public class ExercisesActivity extends Activity {
 

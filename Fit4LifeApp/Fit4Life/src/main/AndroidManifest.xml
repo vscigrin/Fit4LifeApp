@@ -113,6 +113,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="TablesActivity" />
         </activity>
+        <activity
+            android:name="ru.fit4life.app.GlycemicIndexActivity"
+            android:label="@string/title_activity_glycemic_index"
+            android:parentActivityName="TablesActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="TablesActivity" />
+        </activity>
     </application>
 
 </manifest>

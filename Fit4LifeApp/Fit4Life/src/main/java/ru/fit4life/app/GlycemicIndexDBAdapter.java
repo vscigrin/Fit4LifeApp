@@ -5,24 +5,19 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 /**
- * Created by Ivanuch on 07.09.13.
+ * Created by Ivanuch on 08.09.13.
  */
-public class NutrientsDBAdapter {
-
+public class GlycemicIndexDBAdapter {
     public static final String KEY_ROWID = "_id";
-    public static final String KEY_ICON = "icon";
     public static final String KEY_NAME = "name";
-    public static final String KEY_PROTEINS = "proteins";
-    public static final String KEY_FATS = "fats";
-    public static final String KEY_CARBOHYDRATES = "carbohydrates";
-    public static final String KEY_CALORIES = "calories";
+    public static final String KEY_VALUE = "gi_value";
 
-    private static final String TAG = "ExercisesDBAdapter";
+    private static final String TAG = "GlycemicIndexDBAdapter";
     private DatabaseHelper mDbHelper;
     private SQLiteDatabase mDb;
 
 
-    public NutrientsDBAdapter(Context ctx) {
+    public GlycemicIndexDBAdapter(Context ctx) {
         mDbHelper = new DatabaseHelper(ctx);
         mDb = mDbHelper.getWritableDatabase();
     }
@@ -42,7 +37,7 @@ public class NutrientsDBAdapter {
 
     public Cursor fetchAll() {
 
-        String query = "SELECT * FROM nutrients ORDER BY name";
+        String query = "SELECT * FROM GlycemicIndex ORDER BY gi_value DESC";
         return getCursorBySqlString(query);
     }
 }

@@ -15,20 +15,20 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class NutrientsActivity extends Activity {
+public class GlycemicIndexActivity extends Activity {
 
     private static final String TAG = "NutrientsActivity";
 
-    private NutrientsDBAdapter nutrientsDatabaseHelper;
+    private GlycemicIndexDBAdapter glycemicIndexDatabaseHelper;
     private SimpleCursorAdapter dataAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nutrients);
+        setContentView(R.layout.activity_glycemic_idex);
 
         // Initialize database adapter for the exercises table
-        nutrientsDatabaseHelper = new NutrientsDBAdapter(this);
+        glycemicIndexDatabaseHelper = new GlycemicIndexDBAdapter(this);
 
         //Generate ListView from SQLite Database
         displayListView();
@@ -37,29 +37,23 @@ public class NutrientsActivity extends Activity {
 
     private void displayListView() {
         Log.i(TAG, "display list view inicialized");
-        Cursor cursor = nutrientsDatabaseHelper.fetchAll();
+        Cursor cursor = glycemicIndexDatabaseHelper.fetchAll();
 
         if (cursor.getCount() > 0) {
             String[] columns = {
-                    NutrientsDBAdapter.KEY_NAME,
-                    NutrientsDBAdapter.KEY_PROTEINS,
-                    NutrientsDBAdapter.KEY_FATS,
-                    NutrientsDBAdapter.KEY_CARBOHYDRATES,
-                    NutrientsDBAdapter.KEY_CALORIES
+                    GlycemicIndexDBAdapter.KEY_NAME,
+                    GlycemicIndexDBAdapter.KEY_VALUE,
             };
 
             int[] to = {
-                    R.id.textViewNutrientsName,
-                    R.id.textViewNutrientsProteins,
-                    R.id.textViewNutrientsFats,
-                    R.id.textViewNutrientsCarbohydrates,
-                    R.id.textViewNutrientsCalories
+                    R.id.textViewGlycemicIndexName,
+                    R.id.textViewGlycemicIndexValue
             };
 
-            ListView listView = (ListView) findViewById(R.id.nutrientsList);
+            ListView listView = (ListView) findViewById(R.id.glycemicIndexList);
 
             dataAdapter = new SimpleCursorAdapter(
-                    this, R.layout.nutritions_list_row,
+                    this, R.layout.glycemic_index_list_row,
                     cursor,
                     columns,
                     to,
@@ -67,10 +61,8 @@ public class NutrientsActivity extends Activity {
 
             Log.i(TAG, String.format("dataAdapter row count = " + dataAdapter.getCount()));
 
-
             listView.setAdapter(dataAdapter);
         }
-
 
     }
 
@@ -78,7 +70,7 @@ public class NutrientsActivity extends Activity {
     public void onDestroy() {
         super.onDestroy();
 
-        nutrientsDatabaseHelper.closeDatabaseHelper();
+        glycemicIndexDatabaseHelper.closeDatabaseHelper();
         Log.i(TAG, String.format("View destroyed and database closed"));
     }
 
@@ -88,7 +80,7 @@ public class NutrientsActivity extends Activity {
 
     public void navigateHome(View view) {
 
-        Intent intent = new Intent(NutrientsActivity.this, MainActivity.class);
+        Intent intent = new Intent(GlycemicIndexActivity.this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
@@ -96,7 +88,7 @@ public class NutrientsActivity extends Activity {
     //Show text in top
     private void fillNavigationName() {
         TextView name = (TextView) findViewById(R.id.navigation_toolbar_name);
-        name.setText(R.string.title_activity_nutrients);
+        name.setText(R.string.title_activity_glycemic_index);
     }
 
 }
