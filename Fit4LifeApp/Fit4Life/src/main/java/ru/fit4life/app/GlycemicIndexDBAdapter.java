@@ -3,6 +3,7 @@ package ru.fit4life.app;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.view.inputmethod.InputMethodManager;
 
 /**
  * Created by Ivanuch on 08.09.13.
@@ -15,6 +16,7 @@ public class GlycemicIndexDBAdapter {
     private static final String TAG = "GlycemicIndexDBAdapter";
     private DatabaseHelper mDbHelper;
     private SQLiteDatabase mDb;
+
 
 
     public GlycemicIndexDBAdapter(Context ctx) {
@@ -38,6 +40,11 @@ public class GlycemicIndexDBAdapter {
     public Cursor fetchAll() {
 
         String query = "SELECT * FROM GlycemicIndex ORDER BY gi_value DESC";
+        return getCursorBySqlString(query);
+    }
+
+    public Cursor fetchByFilter(String s) {
+        String query = "SELECT * FROM GlycemicIndex WHERE name LIKE '%" + s + "%' ORDER BY gi_value DESC";
         return getCursorBySqlString(query);
     }
 }
