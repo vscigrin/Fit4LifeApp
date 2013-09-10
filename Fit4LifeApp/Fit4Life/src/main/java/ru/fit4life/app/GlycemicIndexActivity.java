@@ -25,11 +25,7 @@ public class GlycemicIndexActivity extends Activity {
 
     private GlycemicIndexDBAdapter glycemicIndexDatabaseHelper;
     private SimpleCursorAdapter dataAdapter;
-    private TextView nameActivity;
-    private Button buttonSearch;
-    private Button cancelSearch;
-    private EditText inputSearch;
-    private InputMethodManager imm;
+    private NavigationToolbarManager ntm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +35,7 @@ public class GlycemicIndexActivity extends Activity {
         // Initialize database adapter for the exercises table
         glycemicIndexDatabaseHelper = new GlycemicIndexDBAdapter(this);
 
-        imm = (InputMethodManager) getSystemService(
-                Context.INPUT_METHOD_SERVICE);
+        ntm = new NavigationToolbarManager(this);
 
         displayListView();
         setupNavigation();
@@ -99,6 +94,7 @@ public class GlycemicIndexActivity extends Activity {
 
     public void navigateBack(View view) {
         finish();
+        overridePendingTransition(R.anim.animation_in_right, R.anim.animation_out_right);
     }
 
     public void navigateHome(View view) {
@@ -106,27 +102,18 @@ public class GlycemicIndexActivity extends Activity {
         Intent intent = new Intent(GlycemicIndexActivity.this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+        overridePendingTransition(R.anim.animation_in_right, R.anim.animation_out_right);
     }
 
     //Show text in top
     private void setupNavigation() {
-        nameActivity = (TextView) findViewById(R.id.navigation_toolbar_name);
-        nameActivity.setText(R.string.title_activity_glycemic_index);
-        //name.setVisibility(View.GONE);
 
-        buttonSearch = (Button) findViewById(R.id.navigation_toolbar_button_search);
-        buttonSearch.setVisibility(View.VISIBLE);
-
-        cancelSearch = (Button) findViewById(R.id.navigation_toolbar_button_cancel_search);
-        inputSearch = (EditText) findViewById(R.id.navigation_toolbar_inputSearch);
-
-        inputSearch.addTextChangedListener(new TextWatcher() {
+        TextWatcher tw = new TextWatcher() {
 
             @Override
             public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
-                Log.i(TAG, "input text: " + cs);
                 // When user changed the Text
-                GlycemicIndexActivity.this.dataAdapter.getFilter().filter(cs);
+                dataAdapter.getFilter().filter(cs);
             }
 
             @Override
@@ -140,37 +127,22 @@ public class GlycemicIndexActivity extends Activity {
             public void afterTextChanged(Editable arg0) {
                 // TODO Auto-generated method stub
             }
-        });
+        };
+
+        ntm.enableSearching(tw);
     }
 
     public void search(View view) {
         Toast.makeText(this, "Searching...", Toast.LENGTH_SHORT).show();
 
-        //change focus to search view and open keyboard
-        inputSearch.requestFocus();
-        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
-
-        //change activities visibility
-        nameActivity.setVisibility(View.GONE);
-        inputSearch.setVisibility(View.VISIBLE);
-        buttonSearch.setVisibility(View.GONE);
-        cancelSearch.setVisibility(View.VISIBLE);
+        ntm.startSearching();
     }
 
     public void cancelSearch(View view) {
         Toast.makeText(this, "Cancel buttonSearch...", Toast.LENGTH_SHORT).show();
 
-        //clear text & refresh list
-        inputSearch.setText(null, TextView.BufferType.NORMAL);
+        ntm.finishSearching();
 
-        //hide keyboard
-        imm.hideSoftInputFromWindow(inputSearch.getWindowToken(), 0);
-
-        //change activities visibility
-        nameActivity.setVisibility(View.VISIBLE);
-        inputSearch.setVisibility(View.GONE);
-        buttonSearch.setVisibility(View.VISIBLE);
-        cancelSearch.setVisibility(View.GONE);
     }
 
 }
