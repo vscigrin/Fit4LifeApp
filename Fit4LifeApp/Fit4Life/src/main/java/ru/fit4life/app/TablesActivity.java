@@ -61,6 +61,7 @@ public class TablesActivity extends Activity {
             /* show weighting table */
             case R.id.tableWeighting: {
                 Log.i(TAG, "R.id.tableWeighting selected");
+                intent = new Intent(this, FoodsWeightActivity.class);
             }
             break;
             /* show Sport Nutrition table */

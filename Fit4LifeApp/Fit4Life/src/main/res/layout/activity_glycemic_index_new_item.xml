@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:background="#373737"
+        >
+
+    <include layout="@layout/navigation_toolbar_top"/>
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:paddingTop="100dp"
+            android:paddingLeft="25dp"
+            android:textSize="20sp"
+            android:text="Продукт:"
+            />
+
+    <EditText
+            android:id="@+id/glycemic_index_new_name"
+            android:layout_width="wrap_content"
+            android:minWidth="317dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="25dp"
+            android:hint="Название продукта"
+            android:textColorHint="#ffdfdfdf"
+            android:inputType="text"
+            />
+s
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:orientation="horizontal"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="35dp"
+                  android:paddingBottom="5dp">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:paddingLeft="25dp"
+                android:textSize="20sp"
+                android:textColor="#E8E8E8"
+                android:text="Гликемический Индекс:"
+                />
+
+        <EditText
+                android:id="@+id/glycemic_index_new_value"
+                android:minWidth="70dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:textColorHint="#ffdfdfdf"
+                android:inputType="number|numberDecimal"
+                />
+    </LinearLayout>
+
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="100dp">
+
+        <Button
+                android:id="@+id/glycemic_index_new_button_accept"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/button_accept"
+                android:singleLine="false"
+                android:layout_marginLeft="50dp"
+                android:layout_gravity="left"
+                android:onClick="accept"
+                />
+
+        <Button
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/button_cancel"
+                android:layout_marginRight="50dp"
+                android:layout_gravity="right"
+                android:onClick="cancel"
+                />
+    </FrameLayout>
+
+
+</LinearLayout>

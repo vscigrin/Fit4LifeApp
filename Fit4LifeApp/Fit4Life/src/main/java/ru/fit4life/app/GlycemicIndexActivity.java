@@ -1,22 +1,20 @@
 package ru.fit4life.app;
 
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.app.Activity;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.text.Editable;
-import android.text.Selection;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
-import android.widget.EditText;
+import android.widget.AdapterView;
 import android.widget.FilterQueryProvider;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class GlycemicIndexActivity extends Activity {
@@ -25,7 +23,12 @@ public class GlycemicIndexActivity extends Activity {
 
     private GlycemicIndexDBAdapter glycemicIndexDatabaseHelper;
     private SimpleCursorAdapter dataAdapter;
-    private NavigationToolbarManager ntm;
+    private ToolbarsManager toolbarsManager;
+    ListView listView;
+    private int selectedRowId;
+    private String selectedName;
+    private float selectedValue;
+    private String[] menuItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +38,10 @@ public class GlycemicIndexActivity extends Activity {
         // Initialize database adapter for the exercises table
         glycemicIndexDatabaseHelper = new GlycemicIndexDBAdapter(this);
 
-        ntm = new NavigationToolbarManager(this);
+        toolbarsManager = new ToolbarsManager(this);
 
-        displayListView();
+        menuItems = getResources().getStringArray(R.array.tables_context_menu);
+
         setupNavigation();
     }
 
@@ -45,12 +49,12 @@ public class GlycemicIndexActivity extends Activity {
     public void onResume() {
         super.onResume();
 
-        if(!ApplicationState.isForegroud()) {
+        if (!ApplicationState.isForegroud()) {
             Log.i(TAG, "IS NOW FOREGROUND");
             MainActivity.setAppIsUpToDate(false);
             MainActivity.runAppSync(MainActivity.getMainContext());
         }
-
+        displayListView();
         ApplicationState.setBackground();
     }
 
@@ -58,7 +62,7 @@ public class GlycemicIndexActivity extends Activity {
     public void onPause() {
         super.onPause();
 
-        if(!ApplicationState.isForegroud()) {
+        if (!ApplicationState.isForegroud()) {
             Log.i(TAG, "IS NOW BACKGROUND");
         }
     }
@@ -77,8 +81,7 @@ public class GlycemicIndexActivity extends Activity {
                     R.id.textViewGlycemicIndexName,
                     R.id.textViewGlycemicIndexValue
             };
-
-            ListView listView = (ListView) findViewById(R.id.glycemicIndexList);
+            listView = (ListView) findViewById(R.id.glycemicIndexList);
 
             dataAdapter = new SimpleCursorAdapter(
                     this, R.layout.glycemic_index_list_row,
@@ -102,19 +105,99 @@ public class GlycemicIndexActivity extends Activity {
             });
 
             listView.setAdapter(dataAdapter);
+
+
+            registerForContextMenu(listView);
+/*
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> listView, View view,
+                                        int position, long id) {
+                    // Get the cursor, positioned to the corresponding row in the result set
+                    Cursor cursor = (Cursor) listView.getItemAtPosition(position);
+
+                    // Get the state's capital from this row in the database.
+                    String rowId = cursor.getString(cursor.getColumnIndexOrThrow(GlycemicIndexDBAdapter.KEY_ROWID));
+
+                    Toast.makeText(getApplicationContext(), rowId, Toast.LENGTH_SHORT).show();
+
+                }
+            });*/
         }
 
     }
 
+
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+        if (v.getId() == R.id.glycemicIndexList) {
+            AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+            Cursor cursor = (Cursor) listView.getItemAtPosition(info.position);
+
+            selectedRowId = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(GlycemicIndexDBAdapter.KEY_ROWID)));
+            selectedName = cursor.getString(cursor.getColumnIndexOrThrow(GlycemicIndexDBAdapter.KEY_NAME));
+            selectedValue = Float.parseFloat(cursor.getString(cursor.getColumnIndexOrThrow(GlycemicIndexDBAdapter.KEY_VALUE)));
+
+            menu.setHeaderTitle(selectedName);
+            for (int i = 0; i < menuItems.length; i++) {
+                menu.add(Menu.NONE, i, i, menuItems[i]);
+            }
+        }
+    }
+
     @Override
-    public void finish() {
-        super.finish();
+    public boolean onContextItemSelected(MenuItem item) {
+        int menuItemIndex = item.getItemId();
+
+        String menuItemName = menuItems[menuItemIndex];
+
+        if (menuItemName.equals("Edit")) {
+            Intent intent = new Intent(this, GlycemicIndexNewItemActivity.class);
+            intent.setAction(getString(R.string.atEdit));
+            intent.putExtra(GlycemicIndexDBAdapter.KEY_ROWID, selectedRowId);
+            intent.putExtra(GlycemicIndexDBAdapter.KEY_NAME, selectedName);
+            intent.putExtra(GlycemicIndexDBAdapter.KEY_VALUE, selectedValue);
+
+            if (intent != null) {
+                startActivity(intent);
+                overridePendingTransition(R.anim.animation_in_left, R.anim.animation_out_left);
+            }
+
+
+        } else if (menuItemName.equals("Delete")) {
+            Toast.makeText(this, "Item deleted!", Toast.LENGTH_SHORT).show();
+
+            glycemicIndexDatabaseHelper.deleteFoodById(selectedRowId);
+
+            displayListView();
+        }
+
+        return true;
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
 
         ApplicationState.setForeground();
         overridePendingTransition(R.anim.animation_in_right, R.anim.animation_out_right);
     }
 
     public void navigateBack(View view) {
+
+        /*final CharSequence[] items = {"Red", "Green", "Blue"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Pick a color");
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+                Toast.makeText(getApplicationContext(), items[item], Toast.LENGTH_SHORT).show();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+        */
         finish();
         overridePendingTransition(R.anim.animation_in_right, R.anim.animation_out_right);
     }
@@ -142,30 +225,37 @@ public class GlycemicIndexActivity extends Activity {
             @Override
             public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
                                           int arg3) {
-                // TODO Auto-generated method stub
-
             }
-
             @Override
             public void afterTextChanged(Editable arg0) {
-                // TODO Auto-generated method stub
             }
         };
 
-        ntm.enableSearching(tw);
+        toolbarsManager.enableSearching(tw);
     }
 
     public void search(View view) {
         Toast.makeText(this, "Searching...", Toast.LENGTH_SHORT).show();
 
-        ntm.startSearching();
+        toolbarsManager.startSearching();
     }
 
     public void cancelSearch(View view) {
         Toast.makeText(this, "Cancel buttonSearch...", Toast.LENGTH_SHORT).show();
 
-        ntm.finishSearching();
+        toolbarsManager.finishSearching();
 
+    }
+
+    public void addNew(View view) {
+
+        Intent intent = new Intent(this, GlycemicIndexNewItemActivity.class);
+        intent.setAction("atNew");
+
+        if (intent != null) {
+            startActivity(intent);
+            overridePendingTransition(R.anim.animation_in_left, R.anim.animation_out_left);
+        }
     }
 
 }

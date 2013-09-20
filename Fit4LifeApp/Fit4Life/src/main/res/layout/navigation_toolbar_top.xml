@@ -18,13 +18,14 @@
         />
     <TextView
         android:id="@+id/navigation_toolbar_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
         android:gravity="center_horizontal"
         android:textSize="25sp"
         android:textColor="#E8E8E8"
         android:paddingTop="5dp"
         android:layout_weight="7"
+
         />
 
     <EditText android:id="@+id/navigation_toolbar_inputSearch"
@@ -44,15 +45,6 @@
         android:id="@+id/navigation_toolbar_button_cancel_search"
         android:onClick="cancelSearch"
         android:background="@drawable/action_cancel"
-        android:visibility="gone"
-        />
-
-    <Button
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:id="@+id/navigation_toolbar_button_search"
-        android:onClick="search"
-        android:background="@drawable/action_search"
         android:visibility="gone"
         />
 

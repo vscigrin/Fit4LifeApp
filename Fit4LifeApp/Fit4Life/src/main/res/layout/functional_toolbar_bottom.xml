@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    >
+    <Button
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/functional_toolbar_button_search"
+        android:onClick="search"
+        android:background="@drawable/action_search"
+        android:layout_gravity="left"
+        android:layout_marginLeft="20dp"
+
+        />
+
+    <Button
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/functional_toolbar_button_add_new"
+        android:onClick="addNew"
+        android:background="@drawable/action_add_new"
+        android:layout_gravity="center"
+
+        />
+
+
+</FrameLayout>

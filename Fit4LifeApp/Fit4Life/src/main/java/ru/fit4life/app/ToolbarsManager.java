@@ -20,7 +20,7 @@ import android.widget.Toast;
 
 
 
-public class NavigationToolbarManager {
+public class ToolbarsManager {
 
     private TextView nameActivity;
     private Button buttonSearch;
@@ -28,40 +28,33 @@ public class NavigationToolbarManager {
     private EditText inputSearch;
     private InputMethodManager imm;
 
-    public NavigationToolbarManager(Activity a)
+    public ToolbarsManager(Activity a)
     {
-
         this.imm = (InputMethodManager) a.getSystemService(
                 Context.INPUT_METHOD_SERVICE);
 
         nameActivity = (TextView) a.findViewById(R.id.navigation_toolbar_name);
-        nameActivity.setText(R.string.title_activity_glycemic_index);
-
-        buttonSearch = (Button) a.findViewById(R.id.navigation_toolbar_button_search);
-
+        buttonSearch = (Button) a.findViewById(R.id.functional_toolbar_button_search);
         cancelSearch = (Button) a.findViewById(R.id.navigation_toolbar_button_cancel_search);
         inputSearch = (EditText) a.findViewById(R.id.navigation_toolbar_inputSearch);
-
     }
 
 
     public void enableSearching(TextWatcher textWatcher){
-        buttonSearch.setVisibility(View.VISIBLE);
-
         inputSearch.addTextChangedListener(textWatcher);
     }
 
     public void startSearching() {
-
-        //change focus to search view and open keyboard
-        inputSearch.requestFocus();
-        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
 
         //change activities visibility
         nameActivity.setVisibility(View.GONE);
         inputSearch.setVisibility(View.VISIBLE);
         buttonSearch.setVisibility(View.GONE);
         cancelSearch.setVisibility(View.VISIBLE);
+
+        //change focus to search view and open keyboard
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+        inputSearch.requestFocus();
     }
 
     public void finishSearching() {
@@ -79,4 +72,7 @@ public class NavigationToolbarManager {
         cancelSearch.setVisibility(View.GONE);
     }
 
+    public void setNameActivity (String name ) {
+        this.nameActivity.setText(name);
+    }
 }

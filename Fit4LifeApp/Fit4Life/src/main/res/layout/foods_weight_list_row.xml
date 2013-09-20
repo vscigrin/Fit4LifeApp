@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="3dp"
+    android:background="#eaeaea">
+
+
+    <TextView
+        android:id="@+id/textViewFoodsWeightName"
+        android:layout_width="match_parent"
+        android:layout_weight="3"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:paddingLeft="5dp"
+        android:textSize="17sp"
+        android:textColor="#373737" />
+
+    <TextView
+        android:id="@+id/textViewFoodsWeightGlass"
+        android:layout_width="match_parent"
+        android:layout_weight="4"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:paddingLeft="5dp"
+        android:textSize="17sp"
+        android:textColor="#373737" />
+    <TextView
+        android:id="@+id/textViewFoodsWeightSpoon"
+        android:layout_width="match_parent"
+        android:layout_weight="4"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:paddingLeft="5dp"
+        android:textSize="17sp"
+        android:textColor="#373737" />
+    <TextView
+        android:id="@+id/textViewFoodsWeightPcs"
+        android:layout_width="match_parent"
+        android:layout_weight="4"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:paddingLeft="5dp"
+        android:textSize="17sp"
+        android:textColor="#373737" />
+
+</LinearLayout>

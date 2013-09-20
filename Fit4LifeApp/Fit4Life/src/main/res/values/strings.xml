@@ -45,6 +45,17 @@
     <!-- message box body part texts -->
     <string name="alert_title_empty_body_parts">Инфо</string>
     <string name="alert_message_empty_body_parts">Данный раздел пуст.</string>
+    <string name="title_activity_foods_weight">Определение веса продуктов</string>
+    <string name="title_activity_glycemic_index_new_item">Добавить в таблицу ГИ</string>
+    <string name="tables_product_already_exists">Такой продукт уже есть в таблице</string>
+    <string name="tables_enter_product_name">Введите название продукта</string>
+    <string name="tables_glycemic_index_value_is_empty">Введите значение ГИ</string>
+    <string name="tables_data_changed">Данные изменены</string>
+    <string name="atEdit">Editing</string>
+    <string-array name="tables_context_menu">
+        <item>Edit</item>
+        <item>Delete</item>
+    </string-array>
 
     <!-- loading dialog box texts -->
     <string name="loading_dialog_database_is_syncing_title">Внимание!</string>
