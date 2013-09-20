@@ -34,11 +34,25 @@ public class ExercisesActivity extends Activity {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onResume() {
+        super.onResume();
 
-        exerciseDatabaseHelper.closeDatabaseHelper();
-        Log.i(TAG, String.format("View destroyed and database closed"));
+        if(!ApplicationState.isForegroud()) {
+            Log.i(TAG, "IS NOW FOREGROUND");
+            MainActivity.setAppIsUpToDate(false);
+            MainActivity.runAppSync(MainActivity.getMainContext());
+        }
+
+        ApplicationState.setBackground();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        if(!ApplicationState.isForegroud()) {
+            Log.i(TAG, "IS NOW BACKGROUND");
+        }
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -116,6 +130,7 @@ public class ExercisesActivity extends Activity {
                     String exerciseTechnique = itemCursor.getString(itemCursor.getColumnIndexOrThrow("technique"));
                     String exerciseWorkingMuscles = itemCursor.getString(itemCursor.getColumnIndexOrThrow("working_muscles"));
                     String exerciseExerciseType = itemCursor.getString(itemCursor.getColumnIndexOrThrow("exercise_type"));
+                    String exerciseExerciseURL = itemCursor.getString(itemCursor.getColumnIndexOrThrow("exercise_url"));
 
                     Intent intent = new Intent(getApplicationContext(), ExercisesItemActivity.class);
                     intent.putExtra("exerciseId", exerciseId);
@@ -125,6 +140,9 @@ public class ExercisesActivity extends Activity {
                     intent.putExtra("exerciseTechnique", exerciseTechnique);
                     intent.putExtra("exerciseWorkingMuscles", exerciseWorkingMuscles);
                     intent.putExtra("exerciseExerciseType", exerciseExerciseType);
+                    intent.putExtra("exerciseExerciseURL", exerciseExerciseURL);
+
+                    ApplicationState.setForeground();
 
                     startActivity(intent);
                     overridePendingTransition(R.anim.animation_in_left, R.anim.animation_out_left);
@@ -147,13 +165,21 @@ public class ExercisesActivity extends Activity {
         }
     }
 
+    @Override
+    public void finish() {
+        super.finish();
+
+        ApplicationState.setForeground();
+        overridePendingTransition(R.anim.animation_in_right, R.anim.animation_out_right);
+    }
+
     public void navigateBack(View view) {
         finish();
-        overridePendingTransition(R.anim.animation_in_right, R.anim.animation_out_right);
     }
 
     public void navigateHome(View view) {
 
+        ApplicationState.setForeground();
         Intent intent = new Intent(ExercisesActivity.this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);

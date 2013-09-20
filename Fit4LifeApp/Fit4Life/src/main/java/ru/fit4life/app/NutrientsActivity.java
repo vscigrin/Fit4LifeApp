@@ -35,6 +35,28 @@ public class NutrientsActivity extends Activity {
         fillNavigationName();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if(!ApplicationState.isForegroud()) {
+            Log.i(TAG, "IS NOW FOREGROUND");
+            MainActivity.setAppIsUpToDate(false);
+            MainActivity.runAppSync(MainActivity.getMainContext());
+        }
+
+        ApplicationState.setBackground();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        if(!ApplicationState.isForegroud()) {
+            Log.i(TAG, "IS NOW BACKGROUND");
+        }
+    }
+
     private void displayListView() {
         Log.i(TAG, "display list view inicialized");
         Cursor cursor = nutrientsDatabaseHelper.fetchAll();
@@ -75,11 +97,11 @@ public class NutrientsActivity extends Activity {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void finish() {
+        super.finish();
 
-        nutrientsDatabaseHelper.closeDatabaseHelper();
-        Log.i(TAG, String.format("View destroyed and database closed"));
+        ApplicationState.setForeground();
+        overridePendingTransition(R.anim.animation_in_right, R.anim.animation_out_right);
     }
 
     public void navigateBack(View view) {
@@ -88,9 +110,11 @@ public class NutrientsActivity extends Activity {
 
     public void navigateHome(View view) {
 
+        ApplicationState.setForeground();
         Intent intent = new Intent(NutrientsActivity.this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+        overridePendingTransition(R.anim.animation_in_right, R.anim.animation_out_right);
     }
 
     //Show text in top

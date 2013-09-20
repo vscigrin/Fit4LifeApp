@@ -14,18 +14,12 @@ public class GlycemicIndexDBAdapter {
     public static final String KEY_VALUE = "gi_value";
 
     private static final String TAG = "GlycemicIndexDBAdapter";
-    private DatabaseHelper mDbHelper;
     private SQLiteDatabase mDb;
 
 
 
     public GlycemicIndexDBAdapter(Context ctx) {
-        mDbHelper = new DatabaseHelper(ctx);
-        mDb = mDbHelper.getWritableDatabase();
-    }
-
-    public void closeDatabaseHelper() {
-        mDbHelper.close();
+        mDb = MainActivity.myDb;
     }
 
     private Cursor getCursorBySqlString(String query) {

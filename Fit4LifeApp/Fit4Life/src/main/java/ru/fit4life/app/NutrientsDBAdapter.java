@@ -17,18 +17,12 @@ public class NutrientsDBAdapter {
     public static final String KEY_CARBOHYDRATES = "carbohydrates";
     public static final String KEY_CALORIES = "calories";
 
-    private static final String TAG = "ExercisesDBAdapter";
-    private DatabaseHelper mDbHelper;
+    private static final String TAG = "NutrientsDBAdapter";
     private SQLiteDatabase mDb;
 
 
     public NutrientsDBAdapter(Context ctx) {
-        mDbHelper = new DatabaseHelper(ctx);
-        mDb = mDbHelper.getWritableDatabase();
-    }
-
-    public void closeDatabaseHelper() {
-        mDbHelper.close();
+        mDb = MainActivity.myDb;
     }
 
     private Cursor getCursorBySqlString(String query) {

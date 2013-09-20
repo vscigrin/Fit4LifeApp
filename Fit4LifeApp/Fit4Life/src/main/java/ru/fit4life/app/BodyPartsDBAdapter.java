@@ -11,17 +11,10 @@ public class BodyPartsDBAdapter {
     public static final String KEY_NAME = "name";
 
     private static final String TAG = "BodyPartsDBAdapter";
-    private DatabaseHelper mDbHelper;
     private SQLiteDatabase mDb;
 
     public BodyPartsDBAdapter(Context ctx) {
-
-        mDbHelper = new DatabaseHelper(ctx);
-        mDb = mDbHelper.getWritableDatabase();
-    }
-
-    public void closeDatabaseHelper() {
-        mDbHelper.close();
+        mDb = MainActivity.myDb;
     }
 
     private Cursor getCursorBySqlString(String query) {

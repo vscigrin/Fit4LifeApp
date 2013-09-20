@@ -20,6 +20,27 @@ public class TablesActivity extends Activity {
         fillNavigationName();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if(!ApplicationState.isForegroud()) {
+            Log.i(TAG, "IS NOW FOREGROUND");
+            MainActivity.setAppIsUpToDate(false);
+            MainActivity.runAppSync(MainActivity.getMainContext());
+        }
+
+        ApplicationState.setBackground();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        if(!ApplicationState.isForegroud()) {
+            Log.i(TAG, "IS NOW BACKGROUND");
+        }
+    }
 
     public void showTable(View view) {
         Intent intent = null;
@@ -49,9 +70,18 @@ public class TablesActivity extends Activity {
             break;
         }
         if (intent != null) {
+            ApplicationState.setForeground();
             startActivity(intent);
             overridePendingTransition(R.anim.animation_in_left, R.anim.animation_out_left);
         }
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+
+        ApplicationState.setForeground();
+        overridePendingTransition(R.anim.animation_in_right, R.anim.animation_out_right);
     }
 
     public void navigateBack(View view) {
@@ -60,9 +90,11 @@ public class TablesActivity extends Activity {
 
     public void navigateHome(View view) {
 
+        ApplicationState.setForeground();
         Intent intent = new Intent(TablesActivity.this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+        overridePendingTransition(R.anim.animation_in_right, R.anim.animation_out_right);
     }
     //Show text in top
     private void fillNavigationName() {

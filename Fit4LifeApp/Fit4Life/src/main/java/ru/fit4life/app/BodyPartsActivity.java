@@ -32,11 +32,25 @@ public class BodyPartsActivity extends Activity {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onResume() {
+        super.onResume();
 
-        bodyPartsDatabaseHelper.closeDatabaseHelper();
-        Log.i(TAG, String.format("View destroyed and database closed"));
+        if(!ApplicationState.isForegroud()) {
+            Log.i(TAG, "IS NOW FOREGROUND");
+            MainActivity.setAppIsUpToDate(false);
+            MainActivity.runAppSync(MainActivity.getMainContext());
+        }
+
+        ApplicationState.setBackground();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        if(!ApplicationState.isForegroud()) {
+            Log.i(TAG, "IS NOW BACKGROUND");
+        }
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -102,6 +116,7 @@ public class BodyPartsActivity extends Activity {
                 // Get the state's capital from this row in the database.
                 String groupId = itemCursor.getString(itemCursor.getColumnIndexOrThrow("_id"));
 
+                ApplicationState.setForeground();
                 Intent intent = new Intent(getApplicationContext(), ExercisesActivity.class);
                 intent.putExtra("groupId", groupId);
                 startActivity(intent);
@@ -110,13 +125,21 @@ public class BodyPartsActivity extends Activity {
         });
     }
 
+    @Override
+    public void finish() {
+        super.finish();
+
+        ApplicationState.setForeground();
+        overridePendingTransition(R.anim.animation_in_right, R.anim.animation_out_right);
+    }
+
     public void navigateBack(View view) {
         finish();
-        overridePendingTransition(R.anim.animation_in_right, R.anim.animation_out_right);
     }
 
     public void navigateHome(View view) {
 
+        ApplicationState.setForeground();
         Intent intent = new Intent(BodyPartsActivity.this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);

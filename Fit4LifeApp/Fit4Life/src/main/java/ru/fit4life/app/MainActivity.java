@@ -1,25 +1,67 @@
 package ru.fit4life.app;
 
+import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
+import android.util.Log;
 import android.view.View;
+import org.json.JSONObject;
+import java.net.URL;
 
 public class MainActivity extends Activity {
 
-    public static String PACKAGE_NAME;
+    private static final String TAG = "MainActivity";
+
     private DatabaseHelper databaseHelper;
+
+    public static SQLiteDatabase myDb;
+    public static AsyncTask<URL, Void, JSONObject> mTask = null;
+    private static boolean undergroundActivityIsActive = false;
+    private static boolean appIsUpToDate = false;
+    private static Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Initialize DB
-        databaseHelper = new DatabaseHelper(this);
-
         setContentView(R.layout.activity_main);
 
-        PACKAGE_NAME = getApplicationContext().getPackageName();
+        setMainContext(this.getApplicationContext());
+
+        if(!ApplicationState.isForegroud()) {
+            Log.i(TAG, "APP STARTED FOR THE FIRST TIME OR RESUMED FROM BACGROUND");
+
+            // Initialize DB
+            databaseHelper = new DatabaseHelper(this);
+            myDb = databaseHelper.createOrOpen();
+            Log.i(TAG, "DB INITIALISED");
+        }
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if(!ApplicationState.isForegroud()) {
+            Log.i(TAG, "IS NOW FOREGROUND");
+            MainActivity.setAppIsUpToDate(false);
+            MainActivity.runAppSync(MainActivity.getMainContext());
+        }
+
+        ApplicationState.setBackground();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        if(!ApplicationState.isForegroud()) {
+            Log.i(TAG, "IS NOW BACKGROUND");
+        }
+    }
+
 
     public void showSubMenu(View view) {
 
@@ -74,8 +116,47 @@ public class MainActivity extends Activity {
         }
 
         if (intent != null) {
+            ApplicationState.setForeground();
             startActivity(intent);
             overridePendingTransition(R.anim.animation_in_left, R.anim.animation_out_left);
         }
+    }
+
+
+
+
+    public static void runAppSync(Context context) {
+        // we start a new asynchronous task to update our database with latest changes
+        if (!getAppIsUpToDate()) {
+            if (mTask==null) {
+                Log.i(TAG, "App is not up to date and needs to be synchronized!");
+                mTask = new JSONParser(context);
+                mTask.execute();
+            }
+        }
+    }
+
+    public static Context getMainContext() {
+        return MainActivity.mContext;
+    }
+
+    public static void setMainContext(Context context) {
+        MainActivity.mContext = context;
+    }
+
+    public static boolean getAppIsUpToDate() {
+        return MainActivity.appIsUpToDate;
+    }
+
+    public static void setAppIsUpToDate(boolean status) {
+        MainActivity.appIsUpToDate = status;
+    }
+
+    public static boolean getUndergroundActivityStatus() {
+        return MainActivity.undergroundActivityIsActive;
+    }
+
+    public static void setUndergroundActivityStatus(boolean status) {
+        MainActivity.undergroundActivityIsActive = status;
     }
 }

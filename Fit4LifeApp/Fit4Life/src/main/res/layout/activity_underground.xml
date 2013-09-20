@@ -8,9 +8,12 @@
 
     <include layout="@layout/navigation_toolbar_top"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/title_activity_underground" />
+    <ListView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/articlesList"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:dividerHeight="3dp"/>
 
 </LinearLayout>

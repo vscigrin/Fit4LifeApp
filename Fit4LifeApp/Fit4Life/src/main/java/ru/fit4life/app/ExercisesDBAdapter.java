@@ -13,19 +13,14 @@ public class ExercisesDBAdapter {
     public static final String KEY_TECHNIQUE = "technique";
     public static final String KEY_WORKING_MUSCLES = "working_muscles";
     public static final String KEY_EXERCISE_TYPE = "exercise_type";
+    public static final String KEY_EXERCISE_URL = "exercise_url";
 
     private static final String TAG = "ExercisesDBAdapter";
-    private DatabaseHelper mDbHelper;
     private SQLiteDatabase mDb;
 
     public ExercisesDBAdapter(Context ctx) {
 
-        mDbHelper = new DatabaseHelper(ctx);
-        mDb = mDbHelper.getWritableDatabase();
-    }
-
-    public void closeDatabaseHelper() {
-        mDbHelper.close();
+        mDb = MainActivity.myDb;
     }
 
     private Cursor getCursorBySqlString(String query) {

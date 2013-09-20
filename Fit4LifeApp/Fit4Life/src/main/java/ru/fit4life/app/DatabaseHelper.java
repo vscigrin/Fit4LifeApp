@@ -23,7 +23,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         myContext = context;
-        createOrOpen();
+        //createOrOpen();
     }
 
     @Override
@@ -41,7 +41,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return dbFile.exists();
     }
 
-    public void createOrOpen() {
+    public SQLiteDatabase createOrOpen() {
 
         if (dbExists()){
             Log.i(TAG, "Db already exists");
@@ -62,6 +62,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 Log.i(TAG,"Can't copy DataBase: " + e.toString());
             }
         }
+
+        return this.getWritableDatabase();
     }
 
     public void copyDB () throws IOException {
