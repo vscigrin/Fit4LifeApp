@@ -15,9 +15,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class NutrientsActivity extends Activity {
-
-    private static final String TAG = "NutrientsActivity";
+public class NutrientsActivity extends MyActivity {
 
     private NutrientsDBAdapter nutrientsDatabaseHelper;
     private SimpleCursorAdapter dataAdapter;
@@ -27,38 +25,17 @@ public class NutrientsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nutrients);
 
+        setTag(this.getClass().getSimpleName());
+
         // Initialize database adapter for the exercises table
         nutrientsDatabaseHelper = new NutrientsDBAdapter(this);
 
         //Generate ListView from SQLite Database
         displayListView();
-        fillNavigationName();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        if(!ApplicationState.isForegroud()) {
-            Log.i(TAG, "IS NOW FOREGROUND");
-            MainActivity.setAppIsUpToDate(false);
-            MainActivity.runAppSync(MainActivity.getMainContext());
-        }
-
-        ApplicationState.setBackground();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        if(!ApplicationState.isForegroud()) {
-            Log.i(TAG, "IS NOW BACKGROUND");
-        }
     }
 
     private void displayListView() {
-        Log.i(TAG, "display list view inicialized");
+        Log.i(getTag(), "display list view inicialized");
         Cursor cursor = nutrientsDatabaseHelper.fetchAll();
 
         if (cursor.getCount() > 0) {
@@ -87,7 +64,7 @@ public class NutrientsActivity extends Activity {
                     to,
                     0);
 
-            Log.i(TAG, String.format("dataAdapter row count = " + dataAdapter.getCount()));
+            Log.i(getTag(), String.format("dataAdapter row count = " + dataAdapter.getCount()));
 
 
             listView.setAdapter(dataAdapter);
@@ -95,32 +72,4 @@ public class NutrientsActivity extends Activity {
 
 
     }
-
-    @Override
-    public void finish() {
-        super.finish();
-
-        ApplicationState.setForeground();
-        overridePendingTransition(R.anim.animation_in_right, R.anim.animation_out_right);
-    }
-
-    public void navigateBack(View view) {
-        finish();
-    }
-
-    public void navigateHome(View view) {
-
-        ApplicationState.setForeground();
-        Intent intent = new Intent(NutrientsActivity.this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-        overridePendingTransition(R.anim.animation_in_right, R.anim.animation_out_right);
-    }
-
-    //Show text in top
-    private void fillNavigationName() {
-        TextView name = (TextView) findViewById(R.id.navigation_toolbar_name);
-        name.setText(R.string.title_activity_nutrients);
-    }
-
 }

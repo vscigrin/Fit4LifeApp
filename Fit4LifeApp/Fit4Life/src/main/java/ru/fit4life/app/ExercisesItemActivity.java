@@ -12,9 +12,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class ExercisesItemActivity extends Activity {
-
-    private static final String TAG = "ExercisesItemActivity";
+public class ExercisesItemActivity extends MyActivity {
 
     private TextView textViewExerciseName;
     private ImageView imageViewExerciseIcon;
@@ -36,6 +34,8 @@ public class ExercisesItemActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_exercises_item);
+
+        setTag(this.getClass().getSimpleName());
 
         Intent myIntent = getIntent();
 
@@ -84,49 +84,6 @@ public class ExercisesItemActivity extends Activity {
         }
 
         imageViewExerciseIcon.setImageDrawable(getApplicationContext().getResources().getDrawable(resID));
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        if(!ApplicationState.isForegroud()) {
-            Log.i(TAG, "IS NOW FOREGROUND");
-            MainActivity.setAppIsUpToDate(false);
-            MainActivity.runAppSync(MainActivity.getMainContext());
-        }
-
-        ApplicationState.setBackground();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        if(!ApplicationState.isForegroud()) {
-            Log.i(TAG, "IS NOW BACKGROUND");
-        }
-    }
-
-    @Override
-    public void finish() {
-        super.finish();
-
-        ApplicationState.setForeground();
-        overridePendingTransition(R.anim.animation_in_right, R.anim.animation_out_right);
-    }
-
-    public void navigateBack(View view) {
-        finish();
-    }
-
-    public void navigateHome(View view) {
-
-        ApplicationState.setForeground();
-        Intent intent = new Intent(ExercisesItemActivity.this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-        overridePendingTransition(R.anim.animation_in_right, R.anim.animation_out_right);
     }
 
     public void openVideoForExercise(View view) {

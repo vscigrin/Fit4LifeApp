@@ -15,9 +15,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.support.v4.widget.SimpleCursorAdapter;
 
-public class ExercisesActivity extends Activity {
-
-    private static final String TAG = "ExercisesActivity";
+public class ExercisesActivity extends MyActivity {
 
     private ExercisesDBAdapter exerciseDatabaseHelper;
     private SimpleCursorAdapter dataAdapter;
@@ -25,34 +23,14 @@ public class ExercisesActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_exercises);
+
+        setTag(this.getClass().getSimpleName());
+
         // Initialize database adapter for the exercises table
         exerciseDatabaseHelper = new ExercisesDBAdapter(this);
         //Generate ListView from SQLite Database
         displayListView();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        if(!ApplicationState.isForegroud()) {
-            Log.i(TAG, "IS NOW FOREGROUND");
-            MainActivity.setAppIsUpToDate(false);
-            MainActivity.runAppSync(MainActivity.getMainContext());
-        }
-
-        ApplicationState.setBackground();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        if(!ApplicationState.isForegroud()) {
-            Log.i(TAG, "IS NOW BACKGROUND");
-        }
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -88,7 +66,7 @@ public class ExercisesActivity extends Activity {
                     to,
                     0);
 
-            Log.i(TAG, String.format("dataAdapter row count = "+dataAdapter.getCount()));
+            Log.i(getTag(), String.format("dataAdapter row count = "+dataAdapter.getCount()));
 
             dataAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
                 @Override
@@ -163,26 +141,5 @@ public class ExercisesActivity extends Activity {
                         })
                 .show();
         }
-    }
-
-    @Override
-    public void finish() {
-        super.finish();
-
-        ApplicationState.setForeground();
-        overridePendingTransition(R.anim.animation_in_right, R.anim.animation_out_right);
-    }
-
-    public void navigateBack(View view) {
-        finish();
-    }
-
-    public void navigateHome(View view) {
-
-        ApplicationState.setForeground();
-        Intent intent = new Intent(ExercisesActivity.this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-        overridePendingTransition(R.anim.animation_in_right, R.anim.animation_out_right);
     }
 }

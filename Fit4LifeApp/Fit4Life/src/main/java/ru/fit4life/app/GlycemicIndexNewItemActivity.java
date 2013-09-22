@@ -18,9 +18,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class GlycemicIndexNewItemActivity extends Activity {
-
-    private static final String TAG = "GlycemicIndexNewItemActivity";
+public class GlycemicIndexNewItemActivity extends MyActivity {
 
     private EditText newName;
     private EditText newValue;
@@ -38,6 +36,8 @@ public class GlycemicIndexNewItemActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_glycemic_index_new_item);
 
+        setTag(this.getClass().getSimpleName());
+
         glycemicIndexDBAdapter = new GlycemicIndexDBAdapter(this);
         newName = (EditText) findViewById(R.id.glycemic_index_new_name);
         newValue = (EditText) findViewById(R.id.glycemic_index_new_value);
@@ -54,8 +54,6 @@ public class GlycemicIndexNewItemActivity extends Activity {
 
         if (atEdit)
             fillData();
-
-
     }
 
     private void fillData() {
@@ -93,33 +91,6 @@ public class GlycemicIndexNewItemActivity extends Activity {
         }
         return true;
     }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-
-        //glycemicIndexDBAdapter.closeDatabaseHelper();
-        Log.i(TAG, String.format("View destroyed and database closed"));
-    }
-
-
-    public void navigateBack(View view) {
-        navigateBack();
-    }
-
-    private void navigateBack() {
-        finish();
-        overridePendingTransition(R.anim.animation_in_right, R.anim.animation_out_right);
-    }
-
-    public void navigateHome(View view) {
-
-        Intent intent = new Intent(GlycemicIndexNewItemActivity.this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-        overridePendingTransition(R.anim.animation_in_right, R.anim.animation_out_right);
-    }
-
 
     public void accept(View view) {
 

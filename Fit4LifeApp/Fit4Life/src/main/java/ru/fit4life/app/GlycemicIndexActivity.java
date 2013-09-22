@@ -17,9 +17,8 @@ import android.widget.FilterQueryProvider;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class GlycemicIndexActivity extends Activity {
-
-    private static final String TAG = "GlycemicIndexActivity";
+////-XX:MaxHeapSize=256m
+public class GlycemicIndexActivity extends MyActivity {
 
     private GlycemicIndexDBAdapter glycemicIndexDatabaseHelper;
     private SimpleCursorAdapter dataAdapter;
@@ -32,6 +31,9 @@ public class GlycemicIndexActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        setTag(this.getClass().getSimpleName());
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_glycemic_idex);
 
@@ -49,26 +51,11 @@ public class GlycemicIndexActivity extends Activity {
     public void onResume() {
         super.onResume();
 
-        if (!ApplicationState.isForegroud()) {
-            Log.i(TAG, "IS NOW FOREGROUND");
-            MainActivity.setAppIsUpToDate(false);
-            MainActivity.runAppSync(MainActivity.getMainContext());
-        }
         displayListView();
-        ApplicationState.setBackground();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        if (!ApplicationState.isForegroud()) {
-            Log.i(TAG, "IS NOW BACKGROUND");
-        }
     }
 
     private void displayListView() {
-        Log.i(TAG, "display list view inicialized");
+        Log.i(getTag(), "display list view inicialized");
         Cursor cursor = glycemicIndexDatabaseHelper.fetchAll();
 
         if (cursor.getCount() > 0) {
@@ -90,7 +77,7 @@ public class GlycemicIndexActivity extends Activity {
                     to,
                     0);
 
-            Log.i(TAG, String.format("dataAdapter row count = " + dataAdapter.getCount()));
+            Log.i(getTag(), String.format("dataAdapter row count = " + dataAdapter.getCount()));
 
             dataAdapter.setFilterQueryProvider(new FilterQueryProvider() {
                 @Override
@@ -105,7 +92,6 @@ public class GlycemicIndexActivity extends Activity {
             });
 
             listView.setAdapter(dataAdapter);
-
 
             registerForContextMenu(listView);
 /*
@@ -124,7 +110,6 @@ public class GlycemicIndexActivity extends Activity {
                 }
             });*/
         }
-
     }
 
 
@@ -176,40 +161,6 @@ public class GlycemicIndexActivity extends Activity {
     }
 
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-
-        ApplicationState.setForeground();
-        overridePendingTransition(R.anim.animation_in_right, R.anim.animation_out_right);
-    }
-
-    public void navigateBack(View view) {
-
-        /*final CharSequence[] items = {"Red", "Green", "Blue"};
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Pick a color");
-        builder.setItems(items, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int item) {
-                Toast.makeText(getApplicationContext(), items[item], Toast.LENGTH_SHORT).show();
-            }
-        });
-        AlertDialog alert = builder.create();
-        alert.show();
-        */
-        finish();
-        overridePendingTransition(R.anim.animation_in_right, R.anim.animation_out_right);
-    }
-
-    public void navigateHome(View view) {
-
-        ApplicationState.setForeground();
-        Intent intent = new Intent(GlycemicIndexActivity.this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-        overridePendingTransition(R.anim.animation_in_right, R.anim.animation_out_right);
-    }
 
     //Show text in top
     private void setupNavigation() {
@@ -244,7 +195,6 @@ public class GlycemicIndexActivity extends Activity {
         Toast.makeText(this, "Cancel buttonSearch...", Toast.LENGTH_SHORT).show();
 
         toolbarsManager.finishSearching();
-
     }
 
     public void addNew(View view) {
