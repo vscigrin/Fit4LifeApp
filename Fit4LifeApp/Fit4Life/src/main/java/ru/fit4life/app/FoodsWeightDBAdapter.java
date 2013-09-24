@@ -22,7 +22,7 @@ public class FoodsWeightDBAdapter extends ParentDatabaseAdapter {
     }
 
     public Cursor fetchByFilter(String s) {
-        String query = "SELECT * FROM FoodsWeight WHERE name LIKE '%" + s + "%' ORDER BY name ASC";
+        String query = "SELECT * FROM FoodsWeight WHERE name LIKE '%" + s + "%' ORDER BY name ASC COLLATE NOCASE;";
         return getCursorBySqlString(query);
     }
 

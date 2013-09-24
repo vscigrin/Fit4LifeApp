@@ -14,12 +14,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.FilterQueryProvider;
 import android.widget.ListView;
 import android.widget.Toast;
 
 public class NutrientsActivity extends MyActivity {
 
-    private NutrientsDBAdapter nutrientsDatabaseHelper;
+    private NutrientsDBAdapter nutrientsDBAdapter;
     private SimpleCursorAdapter dataAdapter;
     private ToolbarsManager toolbarsManager;
     private ListView listView;
@@ -38,7 +39,7 @@ public class NutrientsActivity extends MyActivity {
         setContentView(R.layout.activity_nutrients);
 
         setTag(this.getClass().getSimpleName());
-        nutrientsDatabaseHelper = new NutrientsDBAdapter();
+        nutrientsDBAdapter = new NutrientsDBAdapter();
         menuItems = getResources().getStringArray(R.array.tables_context_menu);
 
         setupNavigation();
@@ -53,7 +54,7 @@ public class NutrientsActivity extends MyActivity {
 
     private void displayListView() {
         Log.i(getTag(), "display list view inicialized");
-        Cursor cursor = nutrientsDatabaseHelper.fetchAll();
+        Cursor cursor = nutrientsDBAdapter.fetchAll();
 
         if (cursor.getCount() > 0) {
             String[] columns = {
@@ -82,6 +83,18 @@ public class NutrientsActivity extends MyActivity {
                     0);
 
             Log.i(getTag(), String.format("dataAdapter row count = " + dataAdapter.getCount()));
+
+            dataAdapter.setFilterQueryProvider(new FilterQueryProvider() {
+                @Override
+                public Cursor runQuery(CharSequence charSequence) {
+
+                    if (charSequence == null)
+                        return nutrientsDBAdapter.fetchAll();
+
+                    return nutrientsDBAdapter.fetchByFilter(charSequence.toString());
+
+                }
+            });
 
             listView.setAdapter(dataAdapter);
             registerForContextMenu(listView);
@@ -148,7 +161,7 @@ public class NutrientsActivity extends MyActivity {
                     @Override
                     public void onClick(DialogInterface dialog,
                                         int which) {
-                        nutrientsDatabaseHelper.deleteRowById(selectedRowId);
+                        nutrientsDBAdapter.deleteRowById(selectedRowId);
                         displayListView();
                         dialog.dismiss();
                     }

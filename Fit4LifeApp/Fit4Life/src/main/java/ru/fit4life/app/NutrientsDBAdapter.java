@@ -21,18 +21,18 @@ public class NutrientsDBAdapter extends ParentDatabaseAdapter {
     private static final String TAG = "NutrientsDBAdapter";
 
     public Cursor fetchAll() {
-        String query = "SELECT * FROM nutrients ORDER BY name";
+        String query = "SELECT * FROM nutrients ORDER BY name;";
         return getCursorBySqlString(query);
     }
 
     public Cursor fetchByFilter(String s) {
-        String query = "SELECT * FROM nutrients WHERE name LIKE '%" + s + "%' ORDER BY name";
+        String query = "SELECT * FROM nutrients WHERE lower(name) LIKE '%" + s.toLowerCase() + "%' ORDER BY name;";
         return getCursorBySqlString(query);
     }
 
     public boolean foodAlreadyExists(String foodName) {
 
-        String query = "SELECT name FROM nutrients WHERE name = '" + foodName + "' ORDER BY name ASC LIMIT 1";
+        String query = "SELECT name FROM nutrients WHERE lower(name) = '" + foodName.toLowerCase() + "' LIMIT 1;";
 
         if (getCursorBySqlString(query).getCount() > 0)
             return true;

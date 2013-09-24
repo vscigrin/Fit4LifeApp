@@ -19,13 +19,13 @@ public class GlycemicIndexDBAdapter extends ParentDatabaseAdapter {
     }
 
     public Cursor fetchByFilter(String s) {
-        String query = "SELECT * FROM GlycemicIndex WHERE name LIKE '%" + s + "%' ORDER BY gi_value DESC";
+        String query = "SELECT * FROM GlycemicIndex WHERE lower(name) LIKE '%" + s.toLowerCase() + "%' ORDER BY gi_value DESC;";
         return getCursorBySqlString(query);
     }
 
     public boolean foodAlreadyExists(String foodName) {
 
-        String query = "SELECT name FROM GlycemicIndex WHERE name = '" + foodName + "' ORDER BY name ASC LIMIT 1";
+        String query = "SELECT name FROM GlycemicIndex WHERE lower(name) = '" + foodName.toLowerCase() + "'  LIMIT 1;";
 
         if (getCursorBySqlString(query).getCount() > 0)
             return true;
