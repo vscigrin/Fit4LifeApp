@@ -1,9 +1,10 @@
 package ru.fit4life.app;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.app.Activity;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -17,13 +18,13 @@ import android.widget.FilterQueryProvider;
 import android.widget.ListView;
 import android.widget.Toast;
 
-////-XX:MaxHeapSize=256m
+////-XX:MaxHeapSize=512m
+//http://stackoverflow.com/questions/5472362/android-automatic-horizontally-scrolling-textview
 public class GlycemicIndexActivity extends MyActivity {
 
-    private GlycemicIndexDBAdapter glycemicIndexDatabaseHelper;
+    private GlycemicIndexDBAdapter glycemicIndexDBAdapter;
     private SimpleCursorAdapter dataAdapter;
-    private ToolbarsManager toolbarsManager;
-    ListView listView;
+    private ListView listView;
     private int selectedRowId;
     private String selectedName;
     private float selectedValue;
@@ -31,17 +32,11 @@ public class GlycemicIndexActivity extends MyActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        setTag(this.getClass().getSimpleName());
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_glycemic_idex);
 
-        // Initialize database adapter for the exercises table
-        glycemicIndexDatabaseHelper = new GlycemicIndexDBAdapter(this);
-
-        toolbarsManager = new ToolbarsManager(this);
-
+        setTag(this.getClass().getSimpleName());
+        glycemicIndexDBAdapter = new GlycemicIndexDBAdapter();
         menuItems = getResources().getStringArray(R.array.tables_context_menu);
 
         setupNavigation();
@@ -54,9 +49,15 @@ public class GlycemicIndexActivity extends MyActivity {
         displayListView();
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+    }
+
     private void displayListView() {
         Log.i(getTag(), "display list view inicialized");
-        Cursor cursor = glycemicIndexDatabaseHelper.fetchAll();
+        Cursor cursor = glycemicIndexDBAdapter.fetchAll();
 
         if (cursor.getCount() > 0) {
             String[] columns = {
@@ -84,9 +85,9 @@ public class GlycemicIndexActivity extends MyActivity {
                 public Cursor runQuery(CharSequence charSequence) {
 
                     if (charSequence == null)
-                        return glycemicIndexDatabaseHelper.fetchAll();
+                        return glycemicIndexDBAdapter.fetchAll();
 
-                    return glycemicIndexDatabaseHelper.fetchByFilter(charSequence.toString());
+                    return glycemicIndexDBAdapter.fetchByFilter(charSequence.toString());
 
                 }
             });
@@ -150,20 +151,46 @@ public class GlycemicIndexActivity extends MyActivity {
 
 
         } else if (menuItemName.equals("Delete")) {
-            Toast.makeText(this, "Item deleted!", Toast.LENGTH_SHORT).show();
-
-            glycemicIndexDatabaseHelper.deleteFoodById(selectedRowId);
-
-            displayListView();
+            showAlert();
         }
 
         return true;
     }
 
+    private void showAlert() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
+        builder.setCancelable(true);
+        builder.setTitle("Really delete???");
+        builder.setInverseBackgroundForced(true);
+        builder.setPositiveButton("Yes",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog,
+                                        int which) {
+                        glycemicIndexDBAdapter.deleteRowById(selectedRowId);
+                        displayListView();
+                        dialog.dismiss();
+                    }
+                });
+        builder.setNegativeButton("No",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog,
+                                        int which) {
 
-    //Show text in top
+                        dialog.dismiss();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+
+    }
+
     private void setupNavigation() {
+
+        toolbarsManager = new ToolbarsManager(this);
+        toolbarsManager.setNameActivity(this.getTitle().toString());
 
         TextWatcher tw = new TextWatcher() {
 
@@ -177,6 +204,7 @@ public class GlycemicIndexActivity extends MyActivity {
             public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
                                           int arg3) {
             }
+
             @Override
             public void afterTextChanged(Editable arg0) {
             }
@@ -184,6 +212,7 @@ public class GlycemicIndexActivity extends MyActivity {
 
         toolbarsManager.enableSearching(tw);
     }
+
 
     public void search(View view) {
         Toast.makeText(this, "Searching...", Toast.LENGTH_SHORT).show();
@@ -200,7 +229,7 @@ public class GlycemicIndexActivity extends MyActivity {
     public void addNew(View view) {
 
         Intent intent = new Intent(this, GlycemicIndexNewItemActivity.class);
-        intent.setAction("atNew");
+        intent.setAction(getString(R.string.atNew));
 
         if (intent != null) {
             startActivity(intent);

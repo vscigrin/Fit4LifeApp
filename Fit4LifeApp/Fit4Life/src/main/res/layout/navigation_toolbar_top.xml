@@ -5,30 +5,36 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:background="#3DB4B8"
+    android:layout_gravity="top|center_horizontal"
     android:paddingTop="5dp"
-    android:paddingBottom="5dp"
-    android:gravity="center">
+    android:paddingBottom="5dp">
 
     <Button
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:id="@+id/button_back"
         android:onClick="navigateBack"
-        android:background="@drawable/action_back"
-        />
+        android:background="@drawable/action_back" />
+
     <TextView
         android:id="@+id/navigation_toolbar_name"
-        android:layout_width="100dp"
+        android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:gravity="center_horizontal"
+        android:layout_gravity="center"
         android:textSize="25sp"
         android:textColor="#E8E8E8"
         android:paddingTop="5dp"
         android:layout_weight="7"
+        android:gravity="center"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:scrollHorizontally="true" />
 
-        />
-
-    <EditText android:id="@+id/navigation_toolbar_inputSearch"
+    <EditText
+        android:id="@+id/navigation_toolbar_inputSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="5dp"
@@ -36,8 +42,7 @@
         android:textColorHint="#E8E8E8"
         android:inputType="textVisiblePassword"
         android:visibility="gone"
-        android:layout_weight="7"
-/>
+        android:layout_weight="7" />
 
     <Button
         android:layout_width="40dp"
@@ -45,8 +50,7 @@
         android:id="@+id/navigation_toolbar_button_cancel_search"
         android:onClick="cancelSearch"
         android:background="@drawable/action_cancel"
-        android:visibility="gone"
-        />
+        android:visibility="gone" />
 
     <Button
         android:layout_width="40dp"

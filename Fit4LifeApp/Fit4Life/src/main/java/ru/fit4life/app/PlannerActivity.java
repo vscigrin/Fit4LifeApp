@@ -13,6 +13,10 @@ public class PlannerActivity extends MyActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_planner);
+
         setTag(this.getClass().getSimpleName());
+        //set activity name
+        toolbarsManager = new ToolbarsManager(this);
+        toolbarsManager.setNameActivity(this.getTitle().toString());
     }
 }

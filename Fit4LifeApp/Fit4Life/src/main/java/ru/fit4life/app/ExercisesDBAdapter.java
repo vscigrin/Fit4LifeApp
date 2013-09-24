@@ -4,7 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-public class ExercisesDBAdapter {
+public class ExercisesDBAdapter extends ParentDatabaseAdapter {
 
     public static final String KEY_ROWID = "_id";
     public static final String KEY_ICON = "icon";
@@ -16,21 +16,6 @@ public class ExercisesDBAdapter {
     public static final String KEY_EXERCISE_URL = "exercise_url";
 
     private static final String TAG = "ExercisesDBAdapter";
-    private SQLiteDatabase mDb;
-
-    public ExercisesDBAdapter(Context ctx) {
-
-        mDb = MainActivity.myDb;
-    }
-
-    private Cursor getCursorBySqlString(String query) {
-
-        Cursor c = mDb.rawQuery(query, null);
-        if (c != null)
-            c.moveToFirst();
-
-        return c;
-    }
 
     public Cursor fetchExercisesForGroupId(String groupId) {
 
@@ -38,4 +23,5 @@ public class ExercisesDBAdapter {
 
         return getCursorBySqlString(query);
     }
+
 }

@@ -25,7 +25,7 @@ public class FoodsWeightAZFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_foods_weight_az, container, false);
 
         // Initialize database adapter for the exercises table
-        foodsWeightDatabaseHelper = new FoodsWeightDBAdapter(view.getContext());
+        foodsWeightDatabaseHelper = new FoodsWeightDBAdapter();
 
         displayListView();
 

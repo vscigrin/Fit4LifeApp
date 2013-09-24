@@ -66,7 +66,6 @@ s
                   android:layout_marginTop="100dp">
 
         <Button
-                android:id="@+id/glycemic_index_new_button_accept"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:background="@drawable/button_accept"

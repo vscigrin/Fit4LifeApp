@@ -17,13 +17,13 @@
         android:paddingRight="5dp"
         android:paddingBottom="5dp"
         android:onClick="showSubItem"
-        android:id="@+id/diaryMyDiary"
+        android:id="@+id/diaryProgramsNewProgram"
         android:layout_marginBottom="1dp">
 
         <ImageView
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:background="@drawable/diary_my_diary_icon" />
+            android:background="@drawable/diary_programs_new_program_icon" />
 
         <TextView
             android:layout_width="match_parent"
@@ -32,7 +32,7 @@
             android:gravity="left|center_vertical"
             android:textSize="27sp"
             android:textColor="#E8E8E8"
-            android:text="Мой дневник" />
+            android:text="Создать новую" />
     </LinearLayout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -45,13 +45,13 @@
         android:paddingRight="5dp"
         android:paddingBottom="5dp"
         android:onClick="showSubItem"
-        android:id="@+id/diaryPrograms"
+        android:id="@+id/diaryProgramsSavedPrograms"
         android:layout_marginBottom="1dp">
 
         <ImageView
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:background="@drawable/diary_new_program_icon" />
+            android:background="@drawable/diary_programs_saved_programs_icon" />
 
         <TextView
             android:layout_width="match_parent"
@@ -59,35 +59,7 @@
             android:layout_marginLeft="20dp"
             android:gravity="left|center_vertical"
             android:textSize="27sp"
-            android:text="Трен. програмы"
-            android:textColor="#E8E8E8" />
-    </LinearLayout>
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@drawable/list_item_selector"
-        android:paddingTop="5dp"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:paddingBottom="5dp"
-        android:onClick="showSubItem"
-        android:id="@+id/diaryMyProgress"
-        android:layout_marginBottom="1dp">
-
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:background="@drawable/diary_my_progress_icon" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_marginLeft="20dp"
-            android:gravity="left|center_vertical"
-            android:textSize="27sp"
-            android:text="Мой прогресс"
+            android:text="Сохраненные"
             android:textColor="#E8E8E8" />
     </LinearLayout>
 
@@ -96,6 +68,5 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="#373737" />
-
 
 </LinearLayout>

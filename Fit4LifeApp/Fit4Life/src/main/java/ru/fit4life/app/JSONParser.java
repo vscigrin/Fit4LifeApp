@@ -35,7 +35,7 @@ public class JSONParser extends AsyncTask<URL, Void, JSONObject> {
     private static final String TAG = "JSONParser";
     public static final String PREFS_NAME = "F4LPrefsFile";
 
-    private static final String INITIAL_SYNC_DATE = "1983-10-12 10:00:00";
+    private static final String INITIAL_SYNC_DATE = "1983-10-12";
     private static final String WEB_SERVICE_URL = "http://www.fit4life.ru/web_service/fit4life_web_service.php";
     //private static final String WEB_SERVICE_URL = "http://192.168.2.9/fit4life/fit4life_web_service.php";
     private static final String WEB_SERVICE_URL_PREFIX_ARTICLES = "?lastSyncDate=";
@@ -68,7 +68,7 @@ public class JSONParser extends AsyncTask<URL, Void, JSONObject> {
     @Override
     protected JSONObject doInBackground(URL... urls) {
 
-        articlesDatabaseHelper = new ArticlesDBAdapter(this.mContext);
+        articlesDatabaseHelper = new ArticlesDBAdapter();
 
         try {
             DefaultHttpClient httpClient = new DefaultHttpClient();
@@ -172,7 +172,7 @@ public class JSONParser extends AsyncTask<URL, Void, JSONObject> {
     protected void saveLastSyncDate() {
 
         Date currentDateTime = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         lastSyncDate = sdf.format(currentDateTime);
 
         //Modification of the Preferences

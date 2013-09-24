@@ -15,7 +15,10 @@ public class TablesActivity extends MyActivity {
         setContentView(R.layout.activity_tables);
 
         setTag(this.getClass().getSimpleName());
-//        fillNavigationName();
+        //set activity name
+        toolbarsManager = new ToolbarsManager(this);
+        toolbarsManager.setNameActivity(this.getTitle().toString());
+
     }
 
     public void showTable(View view) {
@@ -52,11 +55,4 @@ public class TablesActivity extends MyActivity {
             overridePendingTransition(R.anim.animation_in_left, R.anim.animation_out_left);
         }
     }
-
-    //Show text in top
-/*    private void fillNavigationName() {
-        TextView name = (TextView) findViewById(R.id.navigation_toolbar_name);
-        name.setText(R.string.title_activity_tables);
-    }
-*/
 }

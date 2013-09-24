@@ -1,36 +1,16 @@
 package ru.fit4life.app;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.view.inputmethod.InputMethodManager;
 
-/**
- * Created by Ivanuch on 08.09.13.
- */
-public class GlycemicIndexDBAdapter {
+public class GlycemicIndexDBAdapter extends ParentDatabaseAdapter {
     public static final String KEY_ROWID = "_id";
     public static final String KEY_NAME = "name";
     public static final String KEY_VALUE = "gi_value";
     private static final String TABLE_NAME = "GlycemicIndex";
 
     private static final String TAG = "GlycemicIndexDBAdapter";
-    private SQLiteDatabase mDb;
-
-
-    public GlycemicIndexDBAdapter(Context ctx) {
-        mDb = MainActivity.myDb;
-    }
-
-    private Cursor getCursorBySqlString(String query) {
-
-        Cursor c = mDb.rawQuery(query, null);
-        if (c != null)
-            c.moveToFirst();
-
-        return c;
-    }
 
     public Cursor fetchAll() {
 
@@ -54,32 +34,32 @@ public class GlycemicIndexDBAdapter {
     }
 
 
-    public void insertNewFood(String name, float value) {
+    public void insertNewRow(String name, float value) {
         //Bind values with columns
         ContentValues data = new ContentValues();
         data.put(KEY_NAME, name);
         data.put(KEY_VALUE, value);
 
-        mDb.insert(TABLE_NAME, null, data);
+        getDb().insert(TABLE_NAME, null, data);
     }
 
-    public void updateFoodById(int id, String name, float value) {
+    public void updateRowById(int id, String name, float value) {
 
         ContentValues data = new ContentValues();
         data.put(KEY_NAME, name);
         data.put(KEY_VALUE, value);
 
-        String whereClause = "_id = " + id;
+        String whereClause = KEY_ROWID + " = " + id;
 
-        mDb.update(TABLE_NAME, data, whereClause, null);
+        getDb().update(TABLE_NAME, data, whereClause, null);
 
     }
 
-    public void deleteFoodById(int id) {
+    public void deleteRowById(int id) {
 
-        String whereClause = "_id = " + id;
+        String whereClause = KEY_ROWID + " = " + id;
 
-        mDb.delete(TABLE_NAME,whereClause, null);
+        getDb().delete(TABLE_NAME, whereClause, null);
     }
 
 }

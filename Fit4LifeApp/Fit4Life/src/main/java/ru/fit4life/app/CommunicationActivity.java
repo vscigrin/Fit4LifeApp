@@ -14,5 +14,10 @@ public class CommunicationActivity extends MyActivity {
         setContentView(R.layout.activity_communication);
 
         setTag(this.getClass().getSimpleName());
+
+        //set activity name
+        toolbarsManager = new ToolbarsManager(this);
+        toolbarsManager.setNameActivity(this.getTitle().toString());
+
     }
 }

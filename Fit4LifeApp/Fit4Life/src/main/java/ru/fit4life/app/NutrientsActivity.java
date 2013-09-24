@@ -1,24 +1,36 @@
 package ru.fit4life.app;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.app.Activity;
 import android.support.v4.widget.SimpleCursorAdapter;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.support.v4.app.NavUtils;
-import android.annotation.TargetApi;
-import android.os.Build;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.Toast;
 
 public class NutrientsActivity extends MyActivity {
 
     private NutrientsDBAdapter nutrientsDatabaseHelper;
     private SimpleCursorAdapter dataAdapter;
+    private ToolbarsManager toolbarsManager;
+    private ListView listView;
+    private int selectedRowId;
+    private String selectedName;
+    private float selectedProteins;
+    private float selectedFats;
+    private float selectedCarbs;
+    private float selectedCalories;
+    private String[] menuItems;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,11 +38,16 @@ public class NutrientsActivity extends MyActivity {
         setContentView(R.layout.activity_nutrients);
 
         setTag(this.getClass().getSimpleName());
+        nutrientsDatabaseHelper = new NutrientsDBAdapter();
+        menuItems = getResources().getStringArray(R.array.tables_context_menu);
 
-        // Initialize database adapter for the exercises table
-        nutrientsDatabaseHelper = new NutrientsDBAdapter(this);
+        setupNavigation();
+    }
 
-        //Generate ListView from SQLite Database
+    @Override
+    public void onResume() {
+        super.onResume();
+
         displayListView();
     }
 
@@ -55,7 +72,7 @@ public class NutrientsActivity extends MyActivity {
                     R.id.textViewNutrientsCalories
             };
 
-            ListView listView = (ListView) findViewById(R.id.nutrientsList);
+            listView = (ListView) findViewById(R.id.nutrientsList);
 
             dataAdapter = new SimpleCursorAdapter(
                     this, R.layout.nutritions_list_row,
@@ -66,10 +83,136 @@ public class NutrientsActivity extends MyActivity {
 
             Log.i(getTag(), String.format("dataAdapter row count = " + dataAdapter.getCount()));
 
-
             listView.setAdapter(dataAdapter);
+            registerForContextMenu(listView);
+        }
+    }
+
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+        if (v.getId() == R.id.nutrientsList) {
+            AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+            Cursor cursor = (Cursor) listView.getItemAtPosition(info.position);
+
+            selectedRowId = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(NutrientsDBAdapter.KEY_ROWID)));
+            selectedName = cursor.getString(cursor.getColumnIndexOrThrow(NutrientsDBAdapter.KEY_NAME));
+            selectedProteins = Float.parseFloat(cursor.getString(cursor.getColumnIndexOrThrow(NutrientsDBAdapter.KEY_PROTEINS)));
+            selectedFats = Float.parseFloat(cursor.getString(cursor.getColumnIndexOrThrow(NutrientsDBAdapter.KEY_FATS)));
+            selectedCarbs = Float.parseFloat(cursor.getString(cursor.getColumnIndexOrThrow(NutrientsDBAdapter.KEY_CARBOHYDRATES)));
+            selectedCalories = Float.parseFloat(cursor.getString(cursor.getColumnIndexOrThrow(NutrientsDBAdapter.KEY_CALORIES)));
+
+            menu.setHeaderTitle(selectedName);
+            for (int i = 0; i < menuItems.length; i++) {
+                menu.add(Menu.NONE, i, i, menuItems[i]);
+            }
+        }
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        int menuItemIndex = item.getItemId();
+
+        String menuItemName = menuItems[menuItemIndex];
+
+        if (menuItemName.equals("Edit")) {
+            Intent intent = new Intent(this, NutrientsNewItemActivity.class);
+            intent.setAction(getString(R.string.atEdit));
+            intent.putExtra(NutrientsDBAdapter.KEY_ROWID, selectedRowId);
+            intent.putExtra(NutrientsDBAdapter.KEY_NAME, selectedName);
+            intent.putExtra(NutrientsDBAdapter.KEY_PROTEINS, selectedProteins);
+            intent.putExtra(NutrientsDBAdapter.KEY_FATS, selectedFats);
+            intent.putExtra(NutrientsDBAdapter.KEY_CARBOHYDRATES, selectedCarbs);
+            intent.putExtra(NutrientsDBAdapter.KEY_CALORIES, selectedCalories);
+
+            if (intent != null) {
+                startActivity(intent);
+                overridePendingTransition(R.anim.animation_in_left, R.anim.animation_out_left);
+            }
+
+
+        } else if (menuItemName.equals("Delete")) {
+            showAlert();
         }
 
+        return true;
+    }
 
+    private void showAlert() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setCancelable(true);
+        builder.setTitle("Really delete???");
+        builder.setInverseBackgroundForced(true);
+        builder.setPositiveButton("Yes",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog,
+                                        int which) {
+                        nutrientsDatabaseHelper.deleteRowById(selectedRowId);
+                        displayListView();
+                        dialog.dismiss();
+                    }
+                });
+        builder.setNegativeButton("No",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog,
+                                        int which) {
+
+                        dialog.dismiss();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+
+    private void setupNavigation() {
+        //set activity name
+        toolbarsManager = new ToolbarsManager(this);
+        toolbarsManager.setNameActivity(this.getTitle().toString());
+
+        TextWatcher tw = new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
+                // When user changed the Text
+                dataAdapter.getFilter().filter(cs);
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+                                          int arg3) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable arg0) {
+            }
+        };
+
+        toolbarsManager.enableSearching(tw);
+    }
+
+    public void search(View view) {
+        Toast.makeText(this, "Searching...", Toast.LENGTH_SHORT).show();
+
+        toolbarsManager.startSearching();
+    }
+
+    public void cancelSearch(View view) {
+        Toast.makeText(this, "Cancel buttonSearch...", Toast.LENGTH_SHORT).show();
+
+        toolbarsManager.finishSearching();
+    }
+
+    public void addNew(View view) {
+
+        Intent intent = new Intent(this, NutrientsNewItemActivity.class);
+        intent.setAction(getString(R.string.atNew));
+
+        if (intent != null) {
+            startActivity(intent);
+            overridePendingTransition(R.anim.animation_in_left, R.anim.animation_out_left);
+        }
     }
 }

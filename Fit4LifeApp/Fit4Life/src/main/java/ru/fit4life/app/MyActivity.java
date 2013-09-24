@@ -2,22 +2,33 @@ package ru.fit4life.app;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-public class MyActivity extends Activity{
+public abstract class MyActivity extends Activity{
 
     protected String tag;
+    protected ToolbarsManager toolbarsManager;
+    protected ParentDatabaseAdapter databaseAdapter;
+
+    private Activity activity;
 
 protected String getTag() {
     return this.tag;
 }
     protected void setTag(String tag) {
         this.tag = tag;
+
     }
 
 
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
+        @Override
     public void onResume() {
         super.onResume();
 

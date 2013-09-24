@@ -36,6 +36,10 @@ public class ExercisesItemActivity extends MyActivity {
         setContentView(R.layout.activity_exercises_item);
 
         setTag(this.getClass().getSimpleName());
+        //set activity name
+        toolbarsManager = new ToolbarsManager(this);
+        toolbarsManager.setNameActivity(this.getTitle().toString());
+
 
         Intent myIntent = getIntent();
 

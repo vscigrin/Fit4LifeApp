@@ -4,10 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#373737"
-    >
+    android:background="#373737">
 
-    <include layout="@layout/navigation_toolbar_top"/>
+    <include layout="@layout/navigation_toolbar_top" />
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="horizontal"
@@ -22,8 +21,8 @@
             android:paddingLeft="5dp"
             android:textSize="20sp"
             android:textColor="#E8E8E8"
-            android:text="Продукт"
-            />
+            android:text="Продукт" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_weight="4"
@@ -31,7 +30,8 @@
             android:gravity="left"
             android:textSize="20sp"
             android:textColor="#E8E8E8"
-            android:text="Белки"/>
+            android:text="Белки" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_weight="4"
@@ -39,7 +39,8 @@
             android:gravity="left"
             android:textSize="20sp"
             android:textColor="#E8E8E8"
-            android:text="Жиры"/>
+            android:text="Жиры" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_weight="4"
@@ -47,7 +48,8 @@
             android:gravity="left"
             android:textSize="20sp"
             android:textColor="#E8E8E8"
-            android:text="Угл."/>
+            android:text="Угл." />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_weight="4"
@@ -55,7 +57,7 @@
             android:gravity="left"
             android:textSize="20sp"
             android:textColor="#E8E8E8"
-            android:text="Ккал"/>
+            android:text="Ккал" />
     </LinearLayout>
 
     <ListView
@@ -63,6 +65,14 @@
         android:layout_height="fill_parent"
         android:id="@+id/nutrientsList"
         android:paddingTop="10dp"
-        android:paddingBottom="10dp"/>
+        android:layout_weight="1" />
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:orientation="vertical"
+        android:background="#ffffe1e4" />
+
+    <include layout="@layout/functional_toolbar_bottom" />
 
 </LinearLayout>

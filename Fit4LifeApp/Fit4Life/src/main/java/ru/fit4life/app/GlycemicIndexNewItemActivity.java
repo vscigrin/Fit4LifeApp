@@ -3,15 +3,7 @@ package ru.fit4life.app;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.app.Activity;
-import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.support.v4.app.NavUtils;
-import android.annotation.TargetApi;
-import android.os.Build;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,8 +14,6 @@ public class GlycemicIndexNewItemActivity extends MyActivity {
 
     private EditText newName;
     private EditText newValue;
-    private TextWatcher textWatcher;
-    private Button buttonAccept;
     private GlycemicIndexDBAdapter glycemicIndexDBAdapter;
     private Toast warningToast;
     private TextView toastText;
@@ -38,10 +28,9 @@ public class GlycemicIndexNewItemActivity extends MyActivity {
 
         setTag(this.getClass().getSimpleName());
 
-        glycemicIndexDBAdapter = new GlycemicIndexDBAdapter(this);
+        glycemicIndexDBAdapter = new GlycemicIndexDBAdapter();
         newName = (EditText) findViewById(R.id.glycemic_index_new_name);
         newValue = (EditText) findViewById(R.id.glycemic_index_new_value);
-        buttonAccept = (Button) findViewById(R.id.glycemic_index_new_button_accept);
 
         warningToast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
         toastText = (TextView) warningToast.getView().findViewById(android.R.id.message);
@@ -49,9 +38,17 @@ public class GlycemicIndexNewItemActivity extends MyActivity {
 
         intent = getIntent();
         if (intent.getAction().equals(getString(R.string.atEdit)))
-            atEdit = true;
-        else atEdit = false;
+            atEdit = true; //It's updating existing item, not inserting
+        else atEdit = false; //It's inserting new row
 
+        //set activity name
+        toolbarsManager = new ToolbarsManager(this);
+        toolbarsManager.setNameActivity(this.getTitle().toString());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         if (atEdit)
             fillData();
     }
@@ -89,6 +86,7 @@ public class GlycemicIndexNewItemActivity extends MyActivity {
             warningToast.show();
             return false;
         }
+
         return true;
     }
 
@@ -98,14 +96,14 @@ public class GlycemicIndexNewItemActivity extends MyActivity {
 
             if (atEdit) {
                 Toast.makeText(this, "Product changed", Toast.LENGTH_SHORT).show();
-                glycemicIndexDBAdapter.updateFoodById(intent.getIntExtra(GlycemicIndexDBAdapter.KEY_ROWID, 0), newName.getText().toString().trim(), Float.parseFloat(newValue.getText().toString()) );
+                glycemicIndexDBAdapter.updateRowById(intent.getIntExtra(GlycemicIndexDBAdapter.KEY_ROWID, 0), newName.getText().toString().trim(), Float.parseFloat(newValue.getText().toString()));
 
                 navigateBack();
             }
             else {
             Toast.makeText(this, "Product added", Toast.LENGTH_SHORT).show();
             //insert
-            glycemicIndexDBAdapter.insertNewFood(newName.getText().toString().trim(), Float.parseFloat(newValue.getText().toString()));
+            glycemicIndexDBAdapter.insertNewRow(newName.getText().toString().trim(), Float.parseFloat(newValue.getText().toString()));
 
             //clear forms
             newName.getEditableText().clear();

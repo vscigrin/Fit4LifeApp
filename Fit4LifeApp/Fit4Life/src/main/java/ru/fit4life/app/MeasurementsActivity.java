@@ -14,6 +14,9 @@ public class MeasurementsActivity extends MyActivity {
         setContentView(R.layout.activity_measurements);
 
         setTag(this.getClass().getSimpleName());
+        //set activity name
+        toolbarsManager = new ToolbarsManager(this);
+        toolbarsManager.setNameActivity(this.getTitle().toString());
     }
 
 }

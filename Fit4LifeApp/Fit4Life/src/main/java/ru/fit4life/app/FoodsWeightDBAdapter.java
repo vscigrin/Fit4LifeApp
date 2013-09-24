@@ -5,7 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.view.inputmethod.InputMethodManager;
 
-public class FoodsWeightDBAdapter {
+public class FoodsWeightDBAdapter extends ParentDatabaseAdapter {
     public static final String KEY_ROWID = "_id";
     public static final String KEY_NAME = "name";
     public static final String KEY_GLASS = "per_glass";
@@ -14,28 +14,6 @@ public class FoodsWeightDBAdapter {
     public static final String KEY_GROUPID = "groupid";
 
     private static final String TAG = "FoodsWeightDBAdapter";
-    private DatabaseHelper mDbHelper;
-    private SQLiteDatabase mDb;
-
-
-
-    public FoodsWeightDBAdapter(Context ctx) {
-        mDbHelper = new DatabaseHelper(ctx);
-        mDb = mDbHelper.getWritableDatabase();
-    }
-
-    public void closeDatabaseHelper() {
-        mDbHelper.close();
-    }
-
-    private Cursor getCursorBySqlString(String query) {
-
-        Cursor c = mDb.rawQuery(query, null);
-        if (c != null)
-            c.moveToFirst();
-
-        return c;
-    }
 
     public Cursor fetchAllAZ() {
 

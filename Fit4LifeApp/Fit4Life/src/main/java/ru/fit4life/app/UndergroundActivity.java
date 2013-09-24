@@ -42,7 +42,7 @@ public class UndergroundActivity extends Activity {
             }
         }
         else {
-            articlesDatabaseHelper = new ArticlesDBAdapter(this);
+            articlesDatabaseHelper = new ArticlesDBAdapter();
             displayArticlesListView();
         }
     }

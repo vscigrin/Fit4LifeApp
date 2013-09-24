@@ -28,9 +28,13 @@ public class ExercisesActivity extends MyActivity {
         setTag(this.getClass().getSimpleName());
 
         // Initialize database adapter for the exercises table
-        exerciseDatabaseHelper = new ExercisesDBAdapter(this);
+        exerciseDatabaseHelper = new ExercisesDBAdapter();
         //Generate ListView from SQLite Database
         displayListView();
+        //set activity name
+        toolbarsManager = new ToolbarsManager(this);
+        toolbarsManager.setNameActivity(this.getTitle().toString());
+
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)

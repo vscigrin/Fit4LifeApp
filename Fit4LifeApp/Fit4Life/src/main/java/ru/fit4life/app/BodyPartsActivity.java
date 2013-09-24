@@ -18,6 +18,7 @@ public class BodyPartsActivity extends MyActivity {
     private BodyPartsDBAdapter bodyPartsDatabaseHelper;
     private SimpleCursorAdapter dataAdapter;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,9 +27,13 @@ public class BodyPartsActivity extends MyActivity {
         setTag(this.getClass().getSimpleName());
 
         // Initialize database adapter for the exercises table
-        bodyPartsDatabaseHelper = new BodyPartsDBAdapter(this);
+        bodyPartsDatabaseHelper = new BodyPartsDBAdapter();
         //Generate ListView from SQLite Database
         displayListView();
+
+        //set activity name
+        toolbarsManager = new ToolbarsManager(this);
+        toolbarsManager.setNameActivity(this.getTitle().toString());
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
