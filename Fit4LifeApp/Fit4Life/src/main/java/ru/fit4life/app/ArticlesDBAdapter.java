@@ -37,7 +37,7 @@ public class ArticlesDBAdapter extends ParentDatabaseAdapter {
 
         try {
             //Bind values with columns
-            ContentValues data = new ContentValues();
+            data.clear();
             data.put(KEY_ROWID, id);
             data.put(KEY_TITLE, title);
             data.put(KEY_CONTENT, content);
