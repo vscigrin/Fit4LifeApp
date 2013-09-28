@@ -1,8 +1,6 @@
 package ru.fit4life.app;
 
-import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 
 public class GlycemicIndexDBAdapter extends ParentDatabaseAdapter {
     public static final String KEY_ROWID = "_id";
@@ -13,30 +11,22 @@ public class GlycemicIndexDBAdapter extends ParentDatabaseAdapter {
     private static final String TAG = "GlycemicIndexDBAdapter";
 
     public Cursor fetchAll() {
-
-        String query = "SELECT * FROM GlycemicIndex ORDER BY gi_value DESC";
-        return getCursorBySqlString(query);
+        //"SELECT * FROM GlycemicIndex ORDER BY gi_value DESC";
+        return getCursorByQuery(TABLE_NAME, null, null, KEY_VALUE + " DESC");
     }
 
     public Cursor fetchByFilter(String s) {
-        String query = "SELECT * FROM GlycemicIndex WHERE lower(name) LIKE '%" + s.toLowerCase() + "%' ORDER BY gi_value DESC;";
-        return getCursorBySqlString(query);
+        return getCursorByQuery(TABLE_NAME, KEY_NAME + " LIKE '%?%'", new String[] {s}, KEY_VALUE + " DESC");
     }
 
     public boolean foodAlreadyExists(String foodName) {
-
-        String query = "SELECT name FROM GlycemicIndex WHERE lower(name) = '" + foodName.toLowerCase() + "'  LIMIT 1;";
-
-        if (getCursorBySqlString(query).getCount() > 0)
-            return true;
-        else
-            return false;
+        return itemExists(TABLE_NAME, KEY_NAME + " = ?", new String[]{foodName});
     }
 
 
     public void insertNewRow(String name, float value) {
         //Bind values with columns
-        ContentValues data = new ContentValues();
+        data.clear();
         data.put(KEY_NAME, name);
         data.put(KEY_VALUE, value);
 
@@ -44,22 +34,15 @@ public class GlycemicIndexDBAdapter extends ParentDatabaseAdapter {
     }
 
     public void updateRowById(int id, String name, float value) {
-
-        ContentValues data = new ContentValues();
+        data.clear();
         data.put(KEY_NAME, name);
         data.put(KEY_VALUE, value);
 
-        String whereClause = KEY_ROWID + " = " + id;
-
-        getDb().update(TABLE_NAME, data, whereClause, null);
-
+        getDb().update(TABLE_NAME, data, KEY_ROWID + " = ?", new String[] {String.valueOf(id)});
     }
 
     public void deleteRowById(int id) {
-
-        String whereClause = KEY_ROWID + " = " + id;
-
-        getDb().delete(TABLE_NAME, whereClause, null);
+        getDb().delete(TABLE_NAME, KEY_ROWID + " = ?", new String[] {String.valueOf(id)});
     }
 
 }

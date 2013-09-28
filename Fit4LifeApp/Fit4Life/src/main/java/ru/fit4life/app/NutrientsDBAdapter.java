@@ -1,9 +1,6 @@
 package ru.fit4life.app;
 
-import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 
 /**
  * Created by Ivanuch on 07.09.13.
@@ -21,29 +18,20 @@ public class NutrientsDBAdapter extends ParentDatabaseAdapter {
     private static final String TAG = "NutrientsDBAdapter";
 
     public Cursor fetchAll() {
-        String query = "SELECT * FROM nutrients ORDER BY name;";
-        return getCursorBySqlString(query);
+        return getCursorByQuery(TABLE_NAME, null, null, KEY_NAME);
     }
 
     public Cursor fetchByFilter(String s) {
-        String query = "SELECT * FROM nutrients WHERE lower(name) LIKE '%" + s.toLowerCase() + "%' ORDER BY name;";
-        return getCursorBySqlString(query);
+        return getCursorByQuery(TABLE_NAME, KEY_NAME + " LIKE '%?%'", new String[]{s}, KEY_NAME);
     }
 
     public boolean foodAlreadyExists(String foodName) {
-
-        String query = "SELECT name FROM nutrients WHERE lower(name) = '" + foodName.toLowerCase() + "' LIMIT 1;";
-
-        if (getCursorBySqlString(query).getCount() > 0)
-            return true;
-        else
-            return false;
+        return itemExists(TABLE_NAME, KEY_NAME + " = ?", new String[]{foodName});
     }
-
 
     public void insertNewRow(String name, float proteins, float fats, float carbs, float calories) {
         //Bind values with columns
-        ContentValues data = new ContentValues();
+        data.clear();
         data.put(KEY_NAME, name);
         data.put(KEY_PROTEINS, proteins);
         data.put(KEY_FATS, fats);
@@ -55,23 +43,17 @@ public class NutrientsDBAdapter extends ParentDatabaseAdapter {
 
     public void updateRowById(int id, String name, float proteins, float fats, float carbs, float calories) {
         //Bind values with columns
-        ContentValues data = new ContentValues();
+        data.clear();
         data.put(KEY_NAME, name);
         data.put(KEY_PROTEINS, proteins);
         data.put(KEY_FATS, fats);
         data.put(KEY_CARBOHYDRATES, carbs);
         data.put(KEY_CALORIES, calories);
 
-        String whereClause = KEY_ROWID + " = " + id;
-
-        getDb().update(TABLE_NAME, data, whereClause, null);
+        getDb().update(TABLE_NAME, data, KEY_ROWID + " = ?", new String[]{String.valueOf(id)});
     }
 
     public void deleteRowById(int id) {
-
-        String whereClause = KEY_ROWID + " = " + id;
-
-        getDb().delete(TABLE_NAME, whereClause, null);
+        getDb().delete(TABLE_NAME, KEY_ROWID + " = ?", new String[]{String.valueOf(id)});
     }
-
 }

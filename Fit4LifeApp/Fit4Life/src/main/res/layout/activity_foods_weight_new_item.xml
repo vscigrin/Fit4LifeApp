@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#373737">
+
+    <include layout="@layout/navigation_toolbar_top" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/foodsWeight_spinner"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/foodsWeight_text_name"
+        android:gravity="left"
+        android:paddingTop="20dp"
+        android:paddingLeft="25dp"
+        android:textSize="20sp"
+        android:text="Продукт:" />
+
+    <EditText
+        android:id="@+id/foodsWeight_new_name"
+        android:layout_width="wrap_content"
+        android:minWidth="317dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="25dp"
+        android:hint="Название продукта"
+        android:textColorHint="#ffdfdfdf"
+        />
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingBottom="5dp"
+        android:id="@+id/foodsWeight_layout_glass">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center_vertical"
+            android:paddingLeft="35dp"
+            android:textSize="20sp"
+            android:textColor="#E8E8E8"
+            android:text="В стакане:" />
+
+        <EditText
+            android:id="@+id/foodsWeight_new_glass"
+            android:minWidth="90dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="41dp"
+            android:layout_gravity="right"
+            android:textColorHint="#ffdfdfdf"
+             />
+    </FrameLayout>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingBottom="5dp"
+        android:id="@+id/foodsWeight_layout_spoon">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center_vertical"
+            android:paddingLeft="35dp"
+            android:textSize="20sp"
+            android:textColor="#E8E8E8"
+            android:text="В столовой ложке:" />
+
+        <EditText
+            android:id="@+id/foodsWeight_new_spoon"
+            android:minWidth="90dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="41dp"
+            android:layout_gravity="right"
+            android:textColorHint="#ffdfdfdf"
+            />
+    </FrameLayout>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingBottom="5dp"
+        android:id="@+id/foodsWeight_layout_pcs">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center_vertical"
+            android:paddingLeft="35dp"
+            android:textSize="20sp"
+            android:textColor="#E8E8E8"
+            android:text="1 шт. :" />
+
+        <EditText
+            android:id="@+id/foodsWeight_new_pcs"
+            android:minWidth="90dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="41dp"
+            android:layout_gravity="right"
+            android:textColorHint="#ffdfdfdf"
+            />
+    </FrameLayout>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="90dp">
+
+        <Button
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/button_accept"
+            android:singleLine="false"
+            android:layout_marginLeft="50dp"
+            android:layout_gravity="left"
+            android:onClick="accept" />
+
+        <Button
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/button_cancel"
+            android:layout_marginRight="50dp"
+            android:layout_gravity="right"
+            android:onClick="cancel" />
+    </FrameLayout>
+
+
+</LinearLayout>

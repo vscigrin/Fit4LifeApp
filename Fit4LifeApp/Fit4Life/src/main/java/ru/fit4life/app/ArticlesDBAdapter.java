@@ -22,15 +22,14 @@ public class ArticlesDBAdapter extends ParentDatabaseAdapter {
     private static final String TAG = "ArticlesDBAdapter";
 
     public Cursor fetchAllArticles() {
-        String query = "SELECT * FROM Articles ORDER BY date DESC";
-        return getCursorBySqlString(query);
+        //SELECT * FROM Articles ORDER BY date DESC
+        return getCursorByQuery(TABLE_NAME, null, null, KEY_DATE + " DESC");
     }
 
     public Cursor fetchArticleById(String id) {
 
-        String query = "SELECT * FROM Articles where _id=" + id;
-
-        return getCursorBySqlString(query);
+        //SELECT * FROM Articles where _id= id
+        return getCursorByQuery(TABLE_NAME, KEY_ROWID + " = ?", new String[] {id});
     }
 
     public void insertArticle(int id, String title, String content, String url, String image, String date) {
@@ -47,7 +46,7 @@ public class ArticlesDBAdapter extends ParentDatabaseAdapter {
 
             getDb().insert(TABLE_NAME, null, data);
         } catch (Exception e) {
-            Log.e(TAG, "ERROR " + e.toString());
+            Log.e(TAG, "Insert ERROR!! " + e.toString());
         }
     }
 }

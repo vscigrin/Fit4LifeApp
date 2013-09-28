@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ru.fit4life.app"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="1.0">
 
     <uses-sdk
         android:minSdkVersion="7"
@@ -13,11 +13,11 @@
         android:hardwareAccelerated="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
         <activity
             android:name="ru.fit4life.app.MainActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,7 +28,7 @@
             android:name="ru.fit4life.app.BodyPartsActivity"
             android:label="@string/title_activity_body_parts"
             android:parentActivityName="MainActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="MainActivity" />
@@ -37,7 +37,7 @@
             android:name="ru.fit4life.app.TablesActivity"
             android:label="@string/title_activity_tables"
             android:parentActivityName="MainActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="MainActivity" />
@@ -46,7 +46,7 @@
             android:name="ru.fit4life.app.VideoActivity"
             android:label="@string/title_activity_video"
             android:parentActivityName="MainActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="MainActivity" />
@@ -55,7 +55,7 @@
             android:name="ru.fit4life.app.UndergroundActivity"
             android:label="@string/title_activity_underground"
             android:parentActivityName="MainActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="MainActivity" />
@@ -64,7 +64,7 @@
             android:name="ru.fit4life.app.UndergroundItemActivity"
             android:label="@string/title_activity_underground_item"
             android:parentActivityName="UndergroundActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="UndergroundActivity" />
@@ -73,7 +73,7 @@
             android:name="ru.fit4life.app.DiaryActivity"
             android:label="@string/title_activity_diary"
             android:parentActivityName="MainActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="MainActivity" />
@@ -82,7 +82,7 @@
             android:name="ru.fit4life.app.AudioActivity"
             android:label="@string/title_activity_audio"
             android:parentActivityName="MainActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="MainActivity" />
@@ -91,7 +91,7 @@
             android:name="ru.fit4life.app.PlannerActivity"
             android:label="@string/title_activity_planner"
             android:parentActivityName="MainActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="MainActivity" />
@@ -100,7 +100,7 @@
             android:name="ru.fit4life.app.MeasurementsActivity"
             android:label="@string/title_activity_measurements"
             android:parentActivityName="MainActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="MainActivity" />
@@ -109,7 +109,7 @@
             android:name="ru.fit4life.app.CommunicationActivity"
             android:label="@string/title_activity_communication"
             android:parentActivityName="MainActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="MainActivity" />
@@ -118,7 +118,7 @@
             android:name="ru.fit4life.app.ExercisesActivity"
             android:label="@string/title_activity_exercises"
             android:parentActivityName="BodyPartsActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="BodyPartsActivity" />
@@ -127,7 +127,7 @@
             android:name="ru.fit4life.app.ExercisesItemActivity"
             android:label="@string/title_activity_exercises_item"
             android:parentActivityName="ExercisesActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ExercisesActivity" />
@@ -136,7 +136,7 @@
             android:name="ru.fit4life.app.NutrientsActivity"
             android:label="@string/title_activity_nutrients"
             android:parentActivityName="TablesActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="TablesActivity" />
@@ -145,7 +145,7 @@
             android:name="ru.fit4life.app.GlycemicIndexActivity"
             android:label="@string/title_activity_glycemic_index"
             android:parentActivityName="TablesActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="TablesActivity" />
@@ -154,16 +154,16 @@
             android:name="ru.fit4life.app.GlycemicIndexNewItemActivity"
             android:label="@string/title_activity_glycemic_index_new_item"
             android:parentActivityName="GlycemicIndexActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="GlycemicIndexActivity" />
         </activity>
         <activity
             android:name="ru.fit4life.app.FoodsWeightActivity"
-            android:label="@string/title_activity_glycemic_index_new_item"
+            android:label="@string/title_activity_foods_weight"
             android:parentActivityName="TablesActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="TablesActivity" />
@@ -172,7 +172,7 @@
             android:name="ru.fit4life.app.DiaryProgramsActivity"
             android:label="@string/title_activity_diary_programs"
             android:parentActivityName="DiaryActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="DiaryActivity" />
@@ -181,15 +181,31 @@
             android:name="ru.fit4life.app.DiaryNewProgramActivity"
             android:label="@string/title_activity_diary_new_program"
             android:parentActivityName="DiaryProgramsActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="DiaryProgramsActivity" />
         </activity>
         <activity
             android:name="ru.fit4life.app.NutrientsNewItemActivity"
-            android:label="@string/title_activity_nutrients_new_item" >
+            android:label="@string/title_activity_nutrients_new_item"
+            android:parentActivityName="NutrientsActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="NutrientsActivity" />
         </activity>
+
+        <activity
+            android:name="ru.fit4life.app.FoodsWeightNewItemActivity"
+            android:label="@string/title_activity_foods_weight_new_item"
+            android:parentActivityName="FoodsWeightActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="FoodsWeightActivity" />
+        </activity>
+
     </application>
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />

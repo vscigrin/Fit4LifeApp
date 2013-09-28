@@ -6,6 +6,8 @@ import android.database.sqlite.SQLiteDatabase;
 
 public class BodyPartsDBAdapter extends ParentDatabaseAdapter {
 
+    public static final String TABLE_NAME = "BodyParts";
+
     public static final String KEY_ROWID = "_id";
     public static final String KEY_ICON = "icon";
     public static final String KEY_NAME = "name";
@@ -14,9 +16,6 @@ public class BodyPartsDBAdapter extends ParentDatabaseAdapter {
 
 
     public Cursor fetchAllBodyParts() {
-
-        String query = "SELECT * FROM BodyParts";
-
-        return getCursorBySqlString(query);
+        return getCursorByQuery(TABLE_NAME);
     }
 }

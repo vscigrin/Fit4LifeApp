@@ -58,7 +58,9 @@
     <string name="tables_nutrients_calories_is_empty">Введите значение ККал</string>
     <string name="tables_nutrients_values_to_match">На 100гр продукта не может быть больше 100гр нутриентов</string>
     <string name="tables_data_changed">Данные изменены</string>
+
     <string-array name="tables_context_menu">
+        <item>Add</item>
         <item>Edit</item>
         <item>Delete</item>
     </string-array>
@@ -73,5 +75,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_diary_programs">Програмы тренировок</string>
     <string name="title_activity_nutrients_new_item">Добавить продукт</string>
+    <string name="title_activity_foods_weight_new_item">Новый продукт</string>
 
 </resources>

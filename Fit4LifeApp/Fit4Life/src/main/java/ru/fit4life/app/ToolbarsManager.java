@@ -19,7 +19,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-
 public class ToolbarsManager {
 
     private TextView nameActivity;
@@ -27,9 +26,9 @@ public class ToolbarsManager {
     private Button cancelSearch;
     private EditText inputSearch;
     private InputMethodManager imm;
+    private View functionalToolbar;
 
-    public ToolbarsManager(Activity a)
-    {
+    public ToolbarsManager(Activity a) {
         this.imm = (InputMethodManager) a.getSystemService(
                 Context.INPUT_METHOD_SERVICE);
 
@@ -40,7 +39,7 @@ public class ToolbarsManager {
     }
 
 
-    public void enableSearching(TextWatcher textWatcher){
+    public void enableSearching(TextWatcher textWatcher) {
         inputSearch.addTextChangedListener(textWatcher);
     }
 
@@ -72,7 +71,12 @@ public class ToolbarsManager {
         cancelSearch.setVisibility(View.GONE);
     }
 
-    public void setNameActivity (String name ) {
+    public void setNameActivity(String name) {
         this.nameActivity.setText(name);
+    }
+
+    public void setFunctionalToolbarVisible(int visibility) {
+
+            functionalToolbar.setVisibility(visibility);
     }
 }
