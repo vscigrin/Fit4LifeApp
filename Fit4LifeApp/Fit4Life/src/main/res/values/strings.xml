@@ -65,9 +65,6 @@
         <item>Delete</item>
     </string-array>
 
-    <string name="atEdit">Update existing item</string>
-    <string name="atNew">Insert new item</string>
-
     <!-- loading dialog box texts -->
     <string name="loading_dialog_database_is_syncing_title">Внимание!</string>
     <string name="loading_dialog_database_is_syncing_message">Пожалуйста подождите, происходит обновление базы данных.</string>

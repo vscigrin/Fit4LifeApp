@@ -44,7 +44,7 @@ public class FoodsWeightDBAdapter extends ParentDatabaseAdapter {
     public void insertNewParentRow(String name) {
         //Bind values with columns
         data.clear();
-        data.put(KEY_NAME, name);
+        data.put(KEY_NAME, name.toLowerCase());
 
         getDb().insert(PARENT_TABLE_NAME, null, data);
     }
@@ -52,7 +52,7 @@ public class FoodsWeightDBAdapter extends ParentDatabaseAdapter {
     public void insertNewChildRow(String name, String glass, String spoon, String pcs, int groupId) {
         //Bind values with columns
         data.clear();
-        data.put(KEY_NAME, name);
+        data.put(KEY_NAME, name.toLowerCase());
         data.put(KEY_GLASS, glass);
         data.put(KEY_SPOON, spoon);
         data.put(KEY_PCS, pcs);
@@ -63,14 +63,14 @@ public class FoodsWeightDBAdapter extends ParentDatabaseAdapter {
 
     public void updateParentRowById(String id, String name) {
         data.clear();
-        data.put(KEY_NAME, name);
+        data.put(KEY_NAME, name.toLowerCase());
 
         getDb().update(PARENT_TABLE_NAME, data, KEY_ROWID + " = ?", new String[]{id});
     }
 
     public void updateChildRowById(String id, String name, String glass, String spoon, String pcs, String groupId) {
         data.clear();
-        data.put(KEY_NAME, name);
+        data.put(KEY_NAME, name.toLowerCase());
         data.put(KEY_GLASS, glass);
         data.put(KEY_SPOON, spoon);
         data.put(KEY_PCS, pcs);

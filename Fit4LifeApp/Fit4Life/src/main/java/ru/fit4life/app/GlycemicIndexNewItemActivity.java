@@ -37,7 +37,7 @@ public class GlycemicIndexNewItemActivity extends MyActivity {
         toastText.setTextColor(Color.RED);
 
         intent = getIntent();
-        if (intent.getAction().equals(getString(R.string.atEdit)))
+        if (intent.getAction().equals(Intent.ACTION_INSERT))
             atEdit = true; //It's updating existing item, not inserting
         else atEdit = false; //It's inserting new row
 

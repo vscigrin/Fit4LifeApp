@@ -27,7 +27,7 @@ public class GlycemicIndexDBAdapter extends ParentDatabaseAdapter {
     public void insertNewRow(String name, float value) {
         //Bind values with columns
         data.clear();
-        data.put(KEY_NAME, name);
+        data.put(KEY_NAME, name.toLowerCase());
         data.put(KEY_VALUE, value);
 
         getDb().insert(TABLE_NAME, null, data);
@@ -35,7 +35,7 @@ public class GlycemicIndexDBAdapter extends ParentDatabaseAdapter {
 
     public void updateRowById(int id, String name, float value) {
         data.clear();
-        data.put(KEY_NAME, name);
+        data.put(KEY_NAME, name.toLowerCase());
         data.put(KEY_VALUE, value);
 
         getDb().update(TABLE_NAME, data, KEY_ROWID + " = ?", new String[] {String.valueOf(id)});

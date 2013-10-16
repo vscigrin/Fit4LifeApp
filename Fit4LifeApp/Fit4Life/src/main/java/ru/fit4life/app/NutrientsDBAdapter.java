@@ -32,7 +32,7 @@ public class NutrientsDBAdapter extends ParentDatabaseAdapter {
     public void insertNewRow(String name, float proteins, float fats, float carbs, float calories) {
         //Bind values with columns
         data.clear();
-        data.put(KEY_NAME, name);
+        data.put(KEY_NAME, name.toLowerCase());
         data.put(KEY_PROTEINS, proteins);
         data.put(KEY_FATS, fats);
         data.put(KEY_CARBOHYDRATES, carbs);
@@ -44,7 +44,7 @@ public class NutrientsDBAdapter extends ParentDatabaseAdapter {
     public void updateRowById(int id, String name, float proteins, float fats, float carbs, float calories) {
         //Bind values with columns
         data.clear();
-        data.put(KEY_NAME, name);
+        data.put(KEY_NAME, name.toLowerCase());
         data.put(KEY_PROTEINS, proteins);
         data.put(KEY_FATS, fats);
         data.put(KEY_CARBOHYDRATES, carbs);

@@ -206,7 +206,8 @@ public class FoodsWeightActivity extends MyActivity {
                     intent.setAction("EditChild");
             }
         }
-        startActivity(intent);
+
+            startActivity(intent);
         overridePendingTransition(R.anim.animation_in_left, R.anim.animation_out_left);
         return true;
     }
@@ -248,6 +249,6 @@ public class FoodsWeightActivity extends MyActivity {
 
     private void addNew() {
         Intent intent = new Intent(this, GlycemicIndexNewItemActivity.class);
-        intent.setAction(getString(R.string.atNew));
+        intent.setAction(Intent.ACTION_INSERT);
     }
 }

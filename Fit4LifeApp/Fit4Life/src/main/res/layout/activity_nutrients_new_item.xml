@@ -26,7 +26,8 @@
         android:layout_marginLeft="25dp"
         android:hint="Название продукта"
         android:textColorHint="#ffdfdfdf"
-        android:inputType="text" />
+        android:inputType="text"
+        android:capitalize="none"/>
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="horizontal"

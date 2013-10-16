@@ -139,7 +139,7 @@ public class GlycemicIndexActivity extends MyActivity {
 
         if (menuItemName.equals("Edit")) {
             Intent intent = new Intent(this, GlycemicIndexNewItemActivity.class);
-            intent.setAction(getString(R.string.atEdit));
+            intent.setAction(Intent.ACTION_EDIT);
             intent.putExtra(GlycemicIndexDBAdapter.KEY_ROWID, selectedRowId);
             intent.putExtra(GlycemicIndexDBAdapter.KEY_NAME, selectedName);
             intent.putExtra(GlycemicIndexDBAdapter.KEY_VALUE, selectedValue);
@@ -229,7 +229,7 @@ public class GlycemicIndexActivity extends MyActivity {
     public void addNew(View view) {
 
         Intent intent = new Intent(this, GlycemicIndexNewItemActivity.class);
-        intent.setAction(getString(R.string.atNew));
+        intent.setAction(Intent.ACTION_INSERT);
 
         if (intent != null) {
             startActivity(intent);
