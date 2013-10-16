@@ -13,7 +13,7 @@ public class NutrientsDBAdapter extends ParentDatabaseAdapter {
     public static final String KEY_FATS = "fats";
     public static final String KEY_CARBOHYDRATES = "carbohydrates";
     public static final String KEY_CALORIES = "calories";
-    private static final String TABLE_NAME = "GlycemicIndex";
+    private static final String TABLE_NAME = "Nutrients";
 
     private static final String TAG = "NutrientsDBAdapter";
 

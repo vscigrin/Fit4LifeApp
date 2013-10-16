@@ -14,6 +14,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FilterQueryProvider;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +37,7 @@ public class ToolbarsManager {
         buttonSearch = (Button) a.findViewById(R.id.functional_toolbar_button_search);
         cancelSearch = (Button) a.findViewById(R.id.navigation_toolbar_button_cancel_search);
         inputSearch = (EditText) a.findViewById(R.id.navigation_toolbar_inputSearch);
+        functionalToolbar = (FrameLayout) a.findViewById(R.id.functional_toolbar_button);
     }
 
 
