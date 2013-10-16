@@ -129,7 +129,7 @@ public class NutrientsActivity extends MyActivity {
 
         if (menuItemName.equals("Edit")) {
             Intent intent = new Intent(this, NutrientsNewItemActivity.class);
-            intent.setAction(getString(R.string.atEdit));
+            intent.setAction(Intent.ACTION_EDIT);
             intent.putExtra(NutrientsDBAdapter.KEY_ROWID, selectedRowId);
             intent.putExtra(NutrientsDBAdapter.KEY_NAME, selectedName);
             intent.putExtra(NutrientsDBAdapter.KEY_PROTEINS, selectedProteins);
@@ -221,7 +221,7 @@ public class NutrientsActivity extends MyActivity {
     public void addNew(View view) {
 
         Intent intent = new Intent(this, NutrientsNewItemActivity.class);
-        intent.setAction(getString(R.string.atNew));
+        intent.setAction(intent.ACTION_INSERT);
 
         if (intent != null) {
             startActivity(intent);
